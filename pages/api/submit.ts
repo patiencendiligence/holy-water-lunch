@@ -4,7 +4,7 @@ import { google } from "googleapis";
 export const target = ["https://www.googleapis.com/auth/spreadsheets"]; // .readonly We will specify our target connection
 export const jwt = new google.auth.JWT(
   process.env.NEXT_PUBLIC_ENV_GOOGLE_SHEETS_CLIENT_EMAIL,
-  null,
+  undefined,
   (process.env.NEXT_PUBLIC_ENV_GOOGLE_SHEETS_PRIVATE_KEY || "").replace(
     /\\n/gm,
     "\n"

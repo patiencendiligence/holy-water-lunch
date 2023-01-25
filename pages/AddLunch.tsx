@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { LunchType } from "components/common/types";
+import { options, OptionType } from "components/common/types";
 import Select from "react-select";
 import WaterSvg from "components/common/WaterSvg";
 import Layout from "components/common/Layout";
@@ -16,6 +16,7 @@ const AddLunch = () => {
   const [url, setUrl] = useState("");
   const [priceRate, setPriceRate] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [selectedOption, setSelectedOption] = useState();
 
   const registerOptions = {
     name: { required: "식당 이름을 입력해주세요.." },
@@ -49,7 +50,7 @@ const AddLunch = () => {
     const valid = await trigger();
     if (valid) {
       const sendData = { ...getValues() };
-      sendData["type"] = getValues().type?.value;
+      sendData["type"] = type;
       const rawResponse = await fetch("/api/submit", {
         method: "POST",
         headers: {
@@ -75,6 +76,12 @@ const AddLunch = () => {
       setImageUrl("");
     }
   };
+
+  const handleChange = (option: any) => {
+    setType(option.value);
+    setSelectedOption(option);
+  };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -86,21 +93,15 @@ const AddLunch = () => {
         추가하고픈 맛집이 있다면-
       </span>
       <div>
-        <Controller
-          name="type"
-          control={control}
-          defaultValue=""
-          rules={registerOptions.type}
-          render={({ field }) => (
-            <Select
-              instanceId="1"
-              placeholder="카테고리를 선택해주세요"
-              {...field}
-              options={LunchType}
-              className="text-black py-2 text-base"
-            />
-          )}
+        <Select
+          placeholder="카테고리를 선택해주세요"
+          instanceId="1"
+          value={selectedOption}
+          onChange={(option: any) => handleChange(option)}
+          options={options}
+          className="text-black py-2 text-base"
         />
+
         {/* {errors?.type && (
           <p className="mt-2 text-sm ml-2 text-gray-500 w-full">
             {errors?.type?.message}
