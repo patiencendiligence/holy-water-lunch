@@ -23,4 +23,5 @@ export const options: OptionType[] = [
   { value: "sandwich", label: "샌드위치/빵" },
   { value: "wine", label: "와인/바" },
   { value: "burger", label: "버거" },
+  { value: "del", label: "삭제요청" },
 ];
