@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.history
+.next/cache
+.hot-update.js
+.next/server
+.next
+pages/api/credential.json
+.env.development
