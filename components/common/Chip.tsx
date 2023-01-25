@@ -25,7 +25,7 @@ const ChipStyle = styled.button`
   padding: 15px 10px;
   border-width: 8px;
   border-radius: 12em;
-  font-size: 1.5em;
+  font-size: 1.2em;
   flex-wrap: wrap;
   align-content: space-around;
   justify-content: center;

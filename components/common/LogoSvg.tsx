@@ -2,8 +2,8 @@ const LogoSvg = () => {
   return (
     <svg
       className="loading pl-4"
-      viewBox="0 0 1320 300"
-      enable-background="new 0 1320 300"
+      viewBox="0 -80 1320 300"
+      enable-background="0 -80 1320 300"
       xmlSpace="preserve"
     >
       <defs>
