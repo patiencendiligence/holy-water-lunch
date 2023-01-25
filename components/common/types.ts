@@ -1,16 +1,19 @@
+export type OptionType = {
+  value: string;
+  label: string;
+};
 export interface ILunch {
   sort?: string;
   name: string;
-  type: string;
+  type: OptionType | string;
   menu?: string;
   url?: string;
   imageUrl?: string;
   description: string;
   priceRate?: string | number | undefined;
-  isDisplayed: boolean;
+  isDisplayed?: boolean;
 }
-
-export const LunchType = [
+export const options: OptionType[] = [
   { value: "japanese", label: "일식/회/우동" },
   { value: "asian", label: "아시안 음식" },
   { value: "chinese", label: "중식" },

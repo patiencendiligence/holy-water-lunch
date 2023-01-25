@@ -5,7 +5,7 @@ import WaterSvg from "components/common/WaterSvg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { useRef, useState, useEffect } from "react";
-import { ILunch, LunchType } from "components/common/types";
+import { ILunch, options } from "components/common/types";
 import Layout from "components/common/Layout";
 // Import Swiper styles
 import "swiper/css";
@@ -36,7 +36,7 @@ const SwiperController = styled.div`
 
 const Lunch = ({ lunchListData }: any) => {
   const router = useRouter();
-  const lunchTypeKeys = LunchType.map((t: any) => {
+  const lunchTypeKeys = options.map((t: any) => {
     return t.value;
   });
   const thisType =
@@ -159,6 +159,7 @@ const Data = ({
   imageUrl,
   description,
   priceRate,
+  isDisplayed,
 }: ILunch) => {
   const router = useRouter();
   const movePath = (path: any) => {
@@ -202,18 +203,20 @@ const Data = ({
       ) : (
         ""
       )}
-      <p className="mt-3 text-lg font-medium leading-8 text-slate-500">
-        #{type}, #{sort}, #{menu}
-      </p>
-
-      <p className="mt-1 text-base leading-7 text-slate-300 max-w-2xl">
-        {description}
-      </p>
-      {priceRate && priceRate > 0 && (
-        <p className="font-mono text-sm leading-7 text-slate-500">
-          <span>평균 {priceRate}원</span>
+      <>
+        <p className="mt-3 text-lg font-medium leading-8 text-slate-500">
+          {`#${type}, #${sort}, #${menu}`}
         </p>
-      )}
+
+        <p className="mt-1 text-base leading-7 text-slate-300 max-w-2xl">
+          {description}
+        </p>
+        {priceRate && priceRate > 0 && (
+          <p className="font-mono text-sm leading-7 text-slate-500">
+            <span>평균 {priceRate}원</span>
+          </p>
+        )}
+      </>
     </div>
   );
 };
