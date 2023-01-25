@@ -14,7 +14,7 @@ import "swiper/css/scrollbar";
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { type: "" } }],
+    paths: [{ params: { type: "random" } }],
     fallback: true,
   };
 }
@@ -39,6 +39,77 @@ const Lunch = ({ lunchListData }: any) => {
   const lunchTypeKeys = options.map((t: any) => {
     return t.value;
   });
+
+  const Data = ({
+    sort,
+    name,
+    type,
+    menu,
+    url,
+    imageUrl,
+    description,
+    priceRate,
+    isDisplayed,
+  }: ILunch) => {
+    const router = useRouter();
+    const movePath = (path: any) => {
+      console.log(typeof path);
+      path && path === "asPath"
+        ? router.replace(router.asPath)
+        : router.replace(path);
+    };
+
+    return (
+      <div className="font-sans relative px-4 items-start sm:px-6 md:max-w-2xl md:px-4 lg:px-4 py-6 text-2xl">
+        <h1 className="font-bold leading-7 text-slate-300">{name}</h1>
+        <div className="mt-4 flex items-center gap-4">
+          {/* <button
+          className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
+          type="button"
+          onClick={(path) => movePath("asPath")}
+        >
+          <WaterSvg width={20} color={"#14b4fc"} />
+          다른 거
+        </button> */}
+          {/* <span className="text-sm font-bold text-slate-400">/</span> */}
+          <button
+            className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
+            onClick={() => (url ? movePath(url) : "")}
+          >
+            <WaterSvg width={20} color={"#14b4fc"} />
+            Move detail
+          </button>
+        </div>
+        {imageUrl && imageUrl !== "" ? (
+          <picture className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl">
+            <source
+              media="(max-width: 98vw)"
+              srcSet={imageUrl}
+              width={150}
+              height={150}
+            ></source>
+            <img src={imageUrl} width="100%" height="100%" alt="" />
+          </picture>
+        ) : (
+          ""
+        )}
+        <>
+          <p className="mt-3 text-lg font-medium leading-8 text-slate-500">
+            {`#${type}, #${sort}, #${menu}`}
+          </p>
+
+          <p className="mt-1 text-base leading-7 text-slate-300 max-w-2xl">
+            {description}
+          </p>
+          {priceRate && priceRate > 0 && (
+            <p className="font-mono text-sm leading-7 text-slate-500">
+              <span>평균 {priceRate}원</span>
+            </p>
+          )}
+        </>
+      </div>
+    );
+  };
   const thisType =
     router?.query?.type !== "random"
       ? router.query.type
@@ -150,76 +221,6 @@ const Lunch = ({ lunchListData }: any) => {
   );
 };
 
-const Data = ({
-  sort,
-  name,
-  type,
-  menu,
-  url,
-  imageUrl,
-  description,
-  priceRate,
-  isDisplayed,
-}: ILunch) => {
-  const router = useRouter();
-  const movePath = (path: any) => {
-    console.log(typeof path);
-    path && path === "asPath"
-      ? router.replace(router.asPath)
-      : router.replace(path);
-  };
-
-  return (
-    <div className="font-sans relative px-4 items-start sm:px-6 md:max-w-2xl md:px-4 lg:px-4 py-6 text-2xl">
-      <h1 className="font-bold leading-7 text-slate-300">{name}</h1>
-      <div className="mt-4 flex items-center gap-4">
-        {/* <button
-          className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
-          type="button"
-          onClick={(path) => movePath("asPath")}
-        >
-          <WaterSvg width={20} color={"#14b4fc"} />
-          다른 거
-        </button> */}
-        {/* <span className="text-sm font-bold text-slate-400">/</span> */}
-        <button
-          className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
-          onClick={() => (url ? movePath(url) : "")}
-        >
-          <WaterSvg width={20} color={"#14b4fc"} />
-          Move detail
-        </button>
-      </div>
-      {imageUrl && imageUrl !== "" ? (
-        <picture className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl">
-          <source
-            media="(max-width: 98vw)"
-            srcSet={imageUrl}
-            width={150}
-            height={150}
-          ></source>
-          <img src={imageUrl} width="100%" height="100%" alt="" />
-        </picture>
-      ) : (
-        ""
-      )}
-      <>
-        <p className="mt-3 text-lg font-medium leading-8 text-slate-500">
-          {`#${type}, #${sort}, #${menu}`}
-        </p>
-
-        <p className="mt-1 text-base leading-7 text-slate-300 max-w-2xl">
-          {description}
-        </p>
-        {priceRate && priceRate > 0 && (
-          <p className="font-mono text-sm leading-7 text-slate-500">
-            <span>평균 {priceRate}원</span>
-          </p>
-        )}
-      </>
-    </div>
-  );
-};
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps(context: any) {
   const sheet = await getLunchList();
