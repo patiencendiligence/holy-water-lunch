@@ -44,7 +44,7 @@ export default function Layout({ children }: Props) {
   useEffect(() => {
     setPageLoaded(true);
     checkTitle(router);
-  }, []);
+  }, [router]);
 
   return (
     <div className="font-sans relative px-4 items-start sm:px-6 md:max-w-2xl md:px-4 lg:px-4 py-6 text-2xl">
