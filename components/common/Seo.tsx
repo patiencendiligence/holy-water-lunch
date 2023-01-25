@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 interface ISeoProps {
-  title: string | undefined;
+  title: string;
 }
 
 const Seo = ({ title }: ISeoProps) => {
