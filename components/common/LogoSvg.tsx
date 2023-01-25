@@ -2,8 +2,8 @@ const LogoSvg = () => {
   return (
     <svg
       className="loading pl-4"
-      viewBox="0 0 1320 300"
-      enable-background="new 0 1320 300"
+      viewBox="0 -80 1320 300"
+      enableBackground="0 -80 1320 300"
       xmlSpace="preserve"
     >
       <defs>
@@ -22,7 +22,7 @@ const LogoSvg = () => {
         <text
           id="text"
           transform="matrix(1 0 0 1 -8.0684 116.7852)"
-          font-size="210"
+          fontSize="210"
         >
           HOLY WATER
         </text>
