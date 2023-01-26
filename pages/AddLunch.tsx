@@ -88,7 +88,7 @@ const AddLunch = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full px-2 grid grid-flow-row auto-rows-max gap-4"
+        className="w-full px-2 grid grid-flow-row auto-rows-max gap-4 text-slate-200"
       >
         <span className="text-base w-60">
           HOLY WATER LUNCH 리스트에

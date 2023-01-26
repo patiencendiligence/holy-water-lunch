@@ -11,7 +11,7 @@ const About = () => {
 
   return (
     <>
-      <span className="text-base mt-10">
+      <span className="text-base text-slate-200 mt-10">
         HOLY WATER LUNCH는
         <br />
         보다 짧고 성공적인

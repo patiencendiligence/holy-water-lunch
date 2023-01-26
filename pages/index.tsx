@@ -91,7 +91,7 @@ export default function Home() {
     //do something on page load
   }, []);
   return (
-    <div className="sm:px-0 lg:px-15 text-lg w-full text-gray-600 my-2 mx-auto overflow-hidden">
+    <div className="sm:px-0 lg:px-15 text-lg w-full text-gray-600 my-2 mx-auto overflow-hidden bg-black min-h-screen">
       <div className="max-w-4xl mx-auto">
         {lunchType.map((item: any, index: number) => (
           <Link href={item.href} key={index}>
