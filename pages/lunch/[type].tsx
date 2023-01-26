@@ -189,20 +189,6 @@ const Lunch = ({ lunchListData }: any) => {
                     </SwiperSlide>
                   ))}
                 </Swiper>
-
-                <SwiperController
-                  ref={navigationNextRef}
-                  className="swiper-nav-ctrl cursor-pointer right hover:scale-110 ease-in-out duration-150 group"
-                >
-                  <span className="invisible group-hover:visible block animate-ping absolute h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                </SwiperController>
-                <SwiperController
-                  ref={navigationPrevRef}
-                  className="cursor-pointer hover:scale-110 ease-in-out duration-150 group"
-                  style={{ right: "10px", left: "auto" }}
-                >
-                  <span className="invisible group-hover:visible block animate-ping absolute h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                </SwiperController>
               </div>
             </div>
           </div>
