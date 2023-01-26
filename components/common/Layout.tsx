@@ -13,6 +13,7 @@ const HomeContainer = styled.div`
   right: 0;
   justify-content: space-evenly;
   align-items: center;
+  overflow: hidden;
 `;
 
 type Props = {
@@ -47,7 +48,7 @@ export default function Layout({ children }: Props) {
   }, [router]);
 
   return (
-    <div className="font-sans relative px-4 items-start sm:px-6 md:max-w-2xl md:px-4 lg:px-4 py-6 text-2xl">
+    <div className="font-sans relative px-4 items-start sm:px-6 md:px-4 lg:px-4 py-6 text-2xl mx-auto">
       <Seo title={title} />
       <HomeContainer>
         {title !== "Home" && (

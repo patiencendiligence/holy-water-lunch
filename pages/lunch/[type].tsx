@@ -60,7 +60,7 @@ const Lunch = ({ lunchListData }: any) => {
     };
 
     return (
-      <div className="font-sans relative px-4 items-start sm:px-6 md:max-w-2xl md:px-4 lg:px-4 py-6 text-2xl">
+      <div className="font-sans relative px-4 items-start sm:px-6 max-w-2xl md:px-4 lg:px-4 py-6 text-2xl mx-auto">
         <h1 className="font-bold leading-7 text-slate-300">{name}</h1>
         <div className="mt-4 flex items-center gap-4">
           {/* <button
@@ -83,7 +83,7 @@ const Lunch = ({ lunchListData }: any) => {
         {imageUrl && imageUrl !== "" ? (
           <picture className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl">
             <source
-              media="(max-width: 98vw)"
+              media="(max-width: 98%)"
               srcSet={imageUrl}
               width={150}
               height={150}
@@ -175,7 +175,7 @@ const Lunch = ({ lunchListData }: any) => {
                       spaceBetween: 0,
                     },
                     991: {
-                      slidesPerView: 2,
+                      slidesPerView: 1,
                     },
                   }}
                 >

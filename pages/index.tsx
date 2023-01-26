@@ -10,28 +10,28 @@ const lunchType = [
   {
     name: "RANDOM",
     color: " #ee7c01",
-    width: "45%",
+    width: "43%",
     href: "/lunch/random",
     type: "normal",
   },
   {
     name: "JAPANESE",
     color: "#c766e7",
-    width: "35%",
+    width: "48%",
     href: "/lunch/japanese",
     type: "normal",
   },
   {
     name: "ASIAN",
     color: "#5390f2",
-    width: "28%",
+    width: "31%",
     href: "/lunch/asian",
     type: "svg",
   },
   {
     name: "🍔",
     color: "#f6c101",
-    width: "18%",
+    width: "20%",
     href: "/lunch/burger",
     type: "normal",
   },
@@ -45,14 +45,14 @@ const lunchType = [
   {
     name: "ALL",
     color: "#c165e5",
-    width: "35%",
+    width: "47%",
     href: "/lunch/LunchList",
     type: "normal",
   },
   {
     name: "+",
     color: " #568EFF",
-    width: "45%",
+    width: "42%",
     href: "/AddLunch",
     type: "normal",
   },
@@ -66,7 +66,7 @@ const lunchType = [
   {
     name: "KOREAN",
     color: "#0253c2",
-    width: "35%",
+    width: "38%",
     href: "/lunch/korean",
     type: "normal",
   },
@@ -92,7 +92,7 @@ export default function Home() {
   }, []);
   return (
     <>
-      <div className="mx-auto sm:px-0 lg:px-20 text-xl sm:w-full lg:w-1/2 text-gray-600 my-2 max-w-7xl">
+      <div className="sm:px-0 lg:px-15 text-md w-full text-gray-600 my-2 mx-auto">
         <>
           {lunchType.map((item: any, index: number) => (
             <Link href={item.href} key={index}>
