@@ -11,7 +11,7 @@ const About = () => {
 
   return (
     <>
-      <span className="text-base text-slate-200 mt-10">
+      <span className="text-base text-slate-200 mt-10 w-full px-6">
         HOLY WATER LUNCH는
         <br />
         보다 짧고 성공적인
@@ -29,6 +29,10 @@ const About = () => {
         >
           여기 👈
         </button>
+      </span>
+      <span className="text-base text-slate-200 mt-5 w-full px-6">
+        앱 이름 HOLY WATER LUNCH 는 성 / 수 / 점심 입니다. <br />
+        별다른 의미 없는 말장난이예요. (종교뭐시기 아님)
       </span>
       <LogoSvg />
     </>
