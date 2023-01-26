@@ -18,6 +18,11 @@ const Seo = ({ title }: ISeoProps) => {
         />
         <meta property="og:description" content="성수동 점심 도우미" />
       </Head>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5091133649314994"
+        crossOrigin="anonymous"
+      ></script>
     </>
   );
 };
