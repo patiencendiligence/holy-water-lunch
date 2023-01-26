@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import Chip from "../components/common/Chip";
 import SvgButton from "../components/common/SvgButton";
+import Seo from "components/common/Seo";
 
 const lunchType = [
   {
@@ -92,6 +93,7 @@ export default function Home() {
   }, []);
   return (
     <div className="sm:px-0 lg:px-15 text-lg w-full text-gray-600 my-2 mx-auto overflow-hidden bg-black min-h-screen">
+      <Seo title="HOLY WATER LUNCH" />
       <div className="max-w-4xl mx-auto">
         {lunchType.map((item: any, index: number) => (
           <Link href={item.href} key={index}>

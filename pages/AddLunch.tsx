@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { options, OptionType } from "components/common/types";
+import { useForm } from "react-hook-form";
+import { options } from "components/common/types";
 import Select from "react-select";
 import WaterSvg from "components/common/WaterSvg";
 import Layout from "components/common/Layout";
 import Toast from "components/common/Toast";
 
 const AddLunch = () => {
-  // const passDigital = new RegExp(/^([^0-9, S]*)$/);
-
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
@@ -166,14 +164,6 @@ const AddLunch = () => {
             placeholder="ex: 블로그 주소, 인스타 주소 등"
           />
         </div>
-        {/* <input
-          {...register("imageUrl", { required: true })}
-          type="text"
-          placeholder="종류(ex: 점심, 카페, 디저트...)"
-        />
-        {errors?.imageUrl?.type === "required" && (
-          <span>음식 사진이 있으시</span>
-        )} */}
         <div className="py-4 text-center">
           <button
             style={{
