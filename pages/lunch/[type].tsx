@@ -63,15 +63,6 @@ const Lunch = ({ lunchListData }: any) => {
       <div className="font-sans relative px-4 items-start sm:px-6 max-w-2xl md:px-4 lg:px-4 py-6 text-2xl mx-auto">
         <h1 className="font-bold leading-7 text-slate-300">{name}</h1>
         <div className="mt-4 flex items-center gap-4">
-          {/* <button
-          className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
-          type="button"
-          onClick={(path) => movePath("asPath")}
-        >
-          <WaterSvg width={20} color={"#14b4fc"} />
-          다른 거
-        </button> */}
-          {/* <span className="text-sm font-bold text-slate-400">/</span> */}
           <button
             className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
             onClick={() => (url ? movePath(url) : "")}
@@ -140,26 +131,11 @@ const Lunch = ({ lunchListData }: any) => {
                   pagination={{
                     clickable: true,
                   }}
+                  grabCursor={true}
                   centeredSlides={true}
                   lazy={true}
                   observer={true}
                   observeParents={true}
-                  // navigation={{
-                  //   prevEl: navigationPrevRef.current,
-                  //   nextEl: navigationNextRef.current,
-                  // }}
-                  // onBeforeInit={(swiper) => {
-                  // swiper!.params!.navigation!.prevEl =
-                  //   navigationPrevRef.current;
-                  // swiper!.params!.navigation!.nextEl =
-                  //   navigationNextRef.current;
-                  //   swiper.navigation.init();
-                  //   swiper.navigation.update();
-                  // }}
-                  // autoplay={{
-                  //   delay: 2500,
-                  //   disableOnInteraction: false,
-                  // }}
                   speed={1000}
                   breakpoints={{
                     320: {

@@ -91,46 +91,44 @@ export default function Home() {
     //do something on page load
   }, []);
   return (
-    <>
-      <div className="sm:px-0 lg:px-15 text-md w-full text-gray-600 my-2 mx-auto">
-        <>
-          {lunchType.map((item: any, index: number) => (
-            <Link href={item.href} key={index}>
-              {item.type !== "svg" ? (
-                <Chip
-                  width={item.width}
-                  color={item.color}
-                  outlined={[2, 4, 5, 8].indexOf(index) > -1}
-                  isBounce={index === 0}
-                  text={item.name}
-                >
-                  {index === 5 ? (
-                    <span
-                      className="animate-ping absolute inline-flex rounded-full bg-sky-400 opacity-75"
-                      style={{
-                        top: "50%",
-                        left: " 50%",
-                        width: "50px",
-                        margin: "-25px 0 0 -25px",
-                        height: " 50px",
-                      }}
-                    ></span>
-                  ) : (
-                    ""
-                  )}
-                </Chip>
-              ) : (
-                <SvgButton
-                  width={item.width}
-                  color={item.color}
-                  index={index}
-                  text={item.name}
-                ></SvgButton>
-              )}
-            </Link>
-          ))}
-        </>
+    <div className="sm:px-0 lg:px-15 text-lg w-full text-gray-600 my-2 mx-auto overflow-hidden">
+      <div className="max-w-4xl mx-auto">
+        {lunchType.map((item: any, index: number) => (
+          <Link href={item.href} key={index}>
+            {item.type !== "svg" ? (
+              <Chip
+                width={item.width}
+                color={item.color}
+                outlined={[2, 4, 5, 8].indexOf(index) > -1}
+                isBounce={index === 0}
+                text={item.name}
+              >
+                {index === 5 ? (
+                  <span
+                    className="animate-ping absolute inline-flex rounded-full bg-sky-400 opacity-75"
+                    style={{
+                      top: "50%",
+                      left: " 50%",
+                      width: "50px",
+                      margin: "-25px 0 0 -25px",
+                      height: " 50px",
+                    }}
+                  ></span>
+                ) : (
+                  ""
+                )}
+              </Chip>
+            ) : (
+              <SvgButton
+                width={item.width}
+                color={item.color}
+                index={index}
+                text={item.name}
+              ></SvgButton>
+            )}
+          </Link>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
