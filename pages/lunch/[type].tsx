@@ -58,7 +58,10 @@ const Lunch = ({ lunchListData }: any) => {
         ? router.replace(router.asPath)
         : router.replace(path);
     };
-
+    const imageSrc =
+      imageUrl && imageUrl !== ""
+        ? imageUrl
+        : "https://github.com/patiencendiligence/holy-water-lunch/blob/a2b9d699b2fcf1c75520a2a90fbf1f2641600f5e/public/image.png?raw=true";
     return (
       <div className="font-sans relative px-4 items-start sm:px-6 max-w-2xl md:px-4 lg:px-4 py-6 text-2xl mx-auto">
         <h1 className="font-bold leading-7 text-slate-300">{name}</h1>
@@ -71,18 +74,16 @@ const Lunch = ({ lunchListData }: any) => {
             Move detail
           </button>
         </div>
-        {imageUrl && imageUrl !== "" ? (
+        {imageUrl && imageUrl !== "" && (
           <picture className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl">
             <source
               media="(max-width: 98%)"
-              srcSet={imageUrl}
+              srcSet={imageSrc}
               width={150}
               height={150}
             ></source>
-            <img src={imageUrl} width="100%" height="100%" alt="" />
+            <img src={imageSrc} width="100%" height="100%" alt="" />
           </picture>
-        ) : (
-          ""
         )}
         <>
           <p className="mt-3 text-lg font-medium leading-8 text-slate-500">
@@ -96,6 +97,20 @@ const Lunch = ({ lunchListData }: any) => {
             <p className="font-mono text-sm leading-7 text-slate-500">
               <span>평균 {priceRate}원</span>
             </p>
+          )}
+          {(!imageUrl || imageUrl === "") && (
+            <div
+              className="relative flex justify-center items-center mx-auto my-4 w-90 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl"
+              style={{
+                background: `url(${imageSrc}) 0 0 no-repeat`,
+                opacity: "0.7",
+                backgroundSize: "100%",
+                height: "300px",
+                backgroundPosition: "center",
+              }}
+            >
+              <span className="text-sm">이미지가 없어요..</span>
+            </div>
           )}
         </>
       </div>
