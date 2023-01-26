@@ -13,10 +13,9 @@ const Toast = (data: IToast) => {
       {!!data.isShow && (
         <div
           id={`toast-${data.type}`}
-          className="flex absolute items-center w-full p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+          className="flex absolute items-center w-full p-4 mb-4 text-gray-400 bg-gray-800 rounded-lg shadow z-11"
           role="alert"
           style={{
-            zIndex: "100",
             top: "50%",
             left: "2%",
             width: "96%",

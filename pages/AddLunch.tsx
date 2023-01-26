@@ -104,82 +104,56 @@ const AddLunch = () => {
             options={options}
             className="text-black py-2 text-base"
           />
-
-          {/* {errors?.type && (
-          <p className="mt-2 text-sm ml-2 text-gray-500 w-full">
-            {errors?.type?.message}
-          </p>
-        )} */}
         </div>
         <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">
             상호 <em className="text-red-500"> *</em>{" "}
           </label>
           <input
-            className="form-input px-4 py-2 text-black col-span-2 w-full"
+            className="form-input px-4 py-2 text-black col-span-2 w-full  rounded-md"
             {...register("name", registerOptions.name)}
             placeholder="식당 이름"
             type="text"
             // error={Boolean(errors?.name?.message)}
           />
-          {/* {errors?.name && (
-          <p className="mt-2 text-sm ml-2 text-gray-500 w-full">
-            {errors?.name?.message}
-          </p>
-        )} */}
         </div>
         <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">
             설명 <em className="text-red-500"> *</em>{" "}
           </label>
           <input
-            className="form-textarea px-4 py-2 text-black col-span-2 w-full"
+            className="form-textarea px-4 py-2 text-black col-span-2 w-full  rounded-md"
             {...register("description", registerOptions.description)}
             type="textarea"
             placeholder="ex: 인생맛집입니다. / 주로 커피를 팝니다."
           />
-          {/* {errors?.description && (
-          <p className="mt-2 text-sm ml-2 text-gray-500 w-full">
-            {errors?.description?.message}
-          </p>
-        )} */}
         </div>
         <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">
             종류 <em className="text-red-500"> *</em>{" "}
           </label>
           <input
-            className="form-input px-4 py-2 text-black col-span-2 w-full"
+            className="form-input px-4 py-2 text-black col-span-2 w-full  rounded-md"
             {...register("sort", registerOptions.sort)}
             type="text"
             placeholder="ex: 점심, 카페, 디저트..."
           />
-          {/* {errors?.sort && (
-          <p className="mt-2 text-sm ml-2 text-gray-500 w-full">
-            {errors?.sort?.message}
-          </p>
-        )} */}
         </div>
         <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">
             메뉴 <em className="text-red-500"> *</em>{" "}
           </label>
           <input
-            className="form-input px-4 py-2 text-black col-span-2 w-full"
+            className="form-input px-4 py-2 text-black col-span-2 w-full  rounded-md"
             {...register("menu", registerOptions.menu)}
             type="text"
             placeholder="ex: 짜장면, 탕수육, 잡채밥.."
           />
-          {/* {errors?.menu && (
-          <p className="mt-2 text-sm ml-2 text-gray-500 w-full">
-            {errors?.menu?.message}
-          </p>
-        )} */}
         </div>
         <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">평균 가격대</label>
           <input
-            className="form-input px-4 py-2 text-black col-span-2 w-full"
+            className="form-input px-4 py-2 text-black col-span-2 w-full  rounded-md"
             type="text"
             placeholder="ex: ~10000원"
           />
@@ -187,7 +161,7 @@ const AddLunch = () => {
         <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">링크</label>
           <input
-            className="form-input px-4 py-2 text-black col-span-2 w-full"
+            className="form-input px-4 py-2 text-black col-span-2 w-full  rounded-md"
             type="text"
             placeholder="ex: 블로그 주소, 인스타 주소 등"
           />
