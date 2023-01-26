@@ -46,7 +46,11 @@ export default function Layout({ children }: Props) {
     setPageLoaded(true);
     checkTitle(router);
   }, [router]);
-
+  const storage = globalThis?.sessionStorage;
+  const link =
+    storage && storage.getItem("prevPath") !== storage.getItem("currentPath")
+      ? storage.getItem("prevPath")
+      : "/" || "/";
   return (
     <div className="font-sans relative px-4 items-start sm:px-6 md:px-4 lg:px-4 py-6 text-2xl mx-auto">
       <Seo title={title} />
@@ -55,7 +59,7 @@ export default function Layout({ children }: Props) {
           <button
             className="origin-top-right fixed top-0 right-5 z-10"
             type="button"
-            onClick={() => router.back()}
+            onClick={() => router.push(link)}
           >
             <SvgButton width="85" color="#18b4fc" text="뒤로가기"></SvgButton>
           </button>
