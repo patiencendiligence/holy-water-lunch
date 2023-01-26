@@ -1,10 +1,9 @@
 import { getLunchList } from "../api/sheets";
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
 import WaterSvg from "components/common/WaterSvg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ILunch, options } from "components/common/types";
 import Layout from "components/common/Layout";
 // Import Swiper styles
@@ -14,26 +13,10 @@ import "swiper/css/scrollbar";
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { type: "random" } }],
+    paths: [{ params: { type: "korean" } }],
     fallback: true,
   };
 }
-const SwiperController = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  right: auto;
-  width: 50px;
-  height: 50px;
-  margin-top: -25px;
-  z-index: 10;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--swiper-navigation-color, var(--swiper-theme-color));
-`;
-
 const Lunch = ({ lunchListData }: any) => {
   const router = useRouter();
   const lunchTypeKeys = options.map((t: any) => {
@@ -51,7 +34,6 @@ const Lunch = ({ lunchListData }: any) => {
     priceRate,
     isDisplayed,
   }: ILunch) => {
-    const router = useRouter();
     const movePath = (path: any) => {
       console.log(typeof path);
       path && path === "asPath"
@@ -123,8 +105,6 @@ const Lunch = ({ lunchListData }: any) => {
   const filteredLunch = lunchListData?.filter(
     (i: ILunch) => i?.type === thisType
   );
-  const navigationPrevRef = useRef(null);
-  const navigationNextRef = useRef(null);
   const [pageLoaded, setPageLoaded] = useState(false);
 
   useEffect(() => {
