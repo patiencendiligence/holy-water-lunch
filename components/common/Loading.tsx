@@ -8,7 +8,7 @@ const LoaderStyle = styled.svg<{ endWidth: string | undefined }>`
     normal forwards;
   @keyframes duck {
     0% {
-      transform: translate(20px, 0);
+      transform: translate(-300px, 0);
     }
     100% {
       transform: translate(${(props) => props.endWidth || "100vw"}, 0);
@@ -60,7 +60,7 @@ const Loading = ({ ...props }: ILoadingProps) => {
         >
           <defs>
             <radialGradient
-              id="e4plAnYPWs25-fill"
+              id="duck_head-fill"
               cx="0"
               cy="0"
               r="0.716159"
@@ -68,15 +68,11 @@ const Loading = ({ ...props }: ILoadingProps) => {
               gradientUnits="objectBoundingBox"
               gradientTransform="matrix(0.866025 0.5 -0.5 0.866025 0.5 0.5)"
             >
-              <stop id="e4plAnYPWs25-fill-0" offset="0%" stopColor="#d2dbed" />
-              <stop
-                id="e4plAnYPWs25-fill-1"
-                offset="100%"
-                stopColor="#dcd9d6"
-              />
+              <stop id="duck_head-fill-0" offset="0%" stopColor="#d2dbed" />
+              <stop id="duck_head-fill-1" offset="100%" stopColor="#dcd9d6" />
             </radialGradient>
             <linearGradient
-              id="e4plAnYPWs28-fill"
+              id="duck_body-fill"
               x1="0.848496"
               y1="-0.317087"
               x2="0.177392"
@@ -85,8 +81,8 @@ const Loading = ({ ...props }: ILoadingProps) => {
               gradientUnits="objectBoundingBox"
               gradientTransform="translate(0 0)"
             >
-              <stop id="e4plAnYPWs28-fill-0" offset="0%" stopColor="#c8c8c8" />
-              <stop id="e4plAnYPWs28-fill-1" offset="46%" stopColor="#d2dbed" />
+              <stop id="duck_body-fill-0" offset="0%" stopColor="#c8c8c8" />
+              <stop id="duck_body-fill-1" offset="46%" stopColor="#d2dbed" />
             </linearGradient>
           </defs>
           <g id="duck_head" transform="translate(110.031826,51.199867)">
@@ -95,7 +91,7 @@ const Loading = ({ ...props }: ILoadingProps) => {
                 rx="20.003217"
                 ry="18.539566"
                 transform="translate(106.027522 50.199868)"
-                fill="url(#e4plAnYPWs25-fill)"
+                fill="url(#duck_head-fill)"
                 strokeWidth="0"
               />
               <ellipse
@@ -117,7 +113,7 @@ const Loading = ({ ...props }: ILoadingProps) => {
             <path
               d="M114.18347,59.93995c14.26163,0,25.82297,9.36141,25.82297,20.90929s-9.896909,20.655685-18.003224,20.655685-12.628035.079174-13.730432,0-5.086234,0-5.447784,0c-13.57427,0-23.29838-9.377245-27.4034-20.655675s3.57134-20.4214,17.14561-20.4214c3.42996,0,6.9083.58376,10.25779,1.63822c3.42776-1.36159,7.28285-2.12611,11.35846-2.12611l.00001-.00001Z"
               transform="translate(-107.161564,-80.849239)"
-              fill="url(#e4plAnYPWs28-fill)"
+              fill="url(#duck_body-fill)"
               strokeWidth="0"
             />
           </g>
