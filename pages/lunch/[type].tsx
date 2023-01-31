@@ -96,10 +96,7 @@ const Lunch = () => {
       </div>
     );
   };
-  const thisType =
-    router?.query?.type !== "random"
-      ? router.query.type
-      : lunchTypeKeys[Math.floor(Math.random() * lunchTypeKeys.length)];
+
   const [pageLoaded, setPageLoaded] = useState(false);
   const [filteredLunch, setFilteredLunch] = useState([]);
 
@@ -117,6 +114,10 @@ const Lunch = () => {
 
   useEffect(() => {
     if (data && data.data) {
+      const thisType =
+        router?.query?.type !== "random"
+          ? router.query.type
+          : lunchTypeKeys[Math.floor(Math.random() * lunchTypeKeys.length)];
       const filteredLunch = data.data.filter(
         (i: ILunch) => i?.type === thisType
       );
