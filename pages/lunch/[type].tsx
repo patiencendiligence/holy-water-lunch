@@ -10,6 +10,7 @@ import Layout from "components/common/Layout";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
+import Loading from "components/common/Loading";
 
 export async function getStaticPaths() {
   return {
@@ -113,6 +114,7 @@ const Lunch = ({ lunchListData }: any) => {
 
   return (
     <section className="work-carousel metro position-re">
+      {!pageLoaded && <Loading />}
       {filteredLunch && pageLoaded && (
         <div className="container-fluid">
           <div className="row">

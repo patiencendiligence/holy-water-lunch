@@ -1,10 +1,20 @@
 import { getLunchList } from "../api/sheets";
 import Image from "next/image";
 import Layout from "components/common/Layout";
+import Loading from "components/common/Loading";
+import { useState, useEffect } from "react";
+
 const LunchList = ({ lunchListData }: any) => {
+  const [pageLoaded, setPageLoaded] = useState(false);
+
+  useEffect(() => {
+    setPageLoaded(true);
+  }, [pageLoaded]);
+
   return (
     <>
       <ul className="mx-auto max-w-md p-2 shadow">
+        {!pageLoaded && <Loading />}
         {lunchListData && lunchListData.length ? (
           lunchListData.map((item: any, index: number) => (
             <Lunch
