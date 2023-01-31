@@ -1,10 +1,35 @@
-import { getLunchList } from "../api/sheets";
-import Image from "next/image";
 import Layout from "components/common/Layout";
-const LunchList = ({ lunchListData }: any) => {
+import Loading from "components/common/Loading";
+import { useState, useEffect } from "react";
+import useSWR from "swr";
+
+const LunchList = () => {
+  const [pageLoaded, setPageLoaded] = useState(false);
+  const [lunchListData, setLunchListData] = useState([]);
+
+  const fetcher = async () =>
+    await fetch("/api/getList", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      return response.json();
+    });
+  const { data, error } = useSWR("/api/getList", fetcher);
+
+  useEffect(() => {
+    if (data && data.data) {
+      setLunchListData(data.data);
+    }
+    setPageLoaded(true);
+  }, [data]);
+
   return (
     <>
       <ul className="mx-auto max-w-md p-2 shadow">
+        {!pageLoaded && <Loading />}
         {lunchListData && lunchListData.length ? (
           lunchListData.map((item: any, index: number) => (
             <Lunch
@@ -20,7 +45,7 @@ const LunchList = ({ lunchListData }: any) => {
             ></Lunch>
           ))
         ) : (
-          <li>Error..</li>
+          <Loading />
         )}
       </ul>
     </>
@@ -68,16 +93,5 @@ const Lunch = ({
   );
 };
 
-export async function getStaticProps(context: any) {
-  const sheet = await getLunchList();
-  return {
-    props: {
-      lunchListData: sheet
-        .slice(0, sheet.length)
-        .filter((l) => !!l.isDisplayed && l.isDisplayed !== "FALSE"), // remove sheet header
-    },
-    revalidate: 1, // In seconds
-  };
-}
 LunchList.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>;
 export default LunchList;

@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import { NextApiRequest, NextApiResponse } from "next";
 export const target = ["https://www.googleapis.com/auth/spreadsheets"]; // .readonly We will specify our target connection
 export const jwt = new google.auth.JWT(
   process.env.NEXT_PUBLIC_ENV_GOOGLE_SHEETS_CLIENT_EMAIL,
@@ -11,7 +12,10 @@ export const jwt = new google.auth.JWT(
 );
 export const sheets = google.sheets({ version: "v4", auth: jwt });
 
-export async function getLunchList() {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.NEXT_PUBLIC_ENV_SPREADSHEET_ID,
@@ -20,8 +24,8 @@ export async function getLunchList() {
 
     const rows = response.data.values;
     if (rows && rows.length) {
-      console.log(rows, "response");
-      return rows
+      console.log(rows, "row");
+      const setRows = rows
         .map((row, index) => ({
           id: index,
           sort: row[0] ?? "",
@@ -35,6 +39,9 @@ export async function getLunchList() {
           isDisplayed: row[8] ?? false,
         }))
         .filter((row, index) => row && index > 0);
+      return res.status(201).json({
+        data: setRows,
+      });
     }
   } catch (err) {
     console.log("ERROR:", err);

@@ -1,23 +1,17 @@
-import { getLunchList } from "../api/sheets";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 import WaterSvg from "components/common/WaterSvg";
+import Layout from "components/common/Layout";
+import Loading from "components/common/Loading";
+import { ILunch, options } from "components/common/types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import { useState, useEffect } from "react";
-import { ILunch, options } from "components/common/types";
-import Layout from "components/common/Layout";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 
-export async function getStaticPaths() {
-  return {
-    paths: [{ params: { type: "korean" } }],
-    fallback: true,
-  };
-}
-const Lunch = ({ lunchListData }: any) => {
+const Lunch = () => {
   const router = useRouter();
   const lunchTypeKeys = options.map((t: any) => {
     return t.value;
@@ -102,18 +96,34 @@ const Lunch = ({ lunchListData }: any) => {
     router?.query?.type !== "random"
       ? router.query.type
       : lunchTypeKeys[Math.floor(Math.random() * lunchTypeKeys.length)];
-  const filteredLunch = lunchListData?.filter(
-    (i: ILunch) => i?.type === thisType
-  );
   const [pageLoaded, setPageLoaded] = useState(false);
+  const [filteredLunch, setFilteredLunch] = useState([]);
+
+  const fetcher = async () =>
+    await fetch("/api/getList", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      return response.json();
+    });
+  const { data, error } = useSWR("/api/getList", fetcher);
 
   useEffect(() => {
+    if (data && data.data) {
+      const filteredLunch = data.data.filter(
+        (i: ILunch) => i?.type === thisType
+      );
+      setFilteredLunch(filteredLunch);
+    }
     setPageLoaded(true);
-  }, [pageLoaded]);
+  }, [data]);
 
   return (
     <section className="work-carousel metro position-re">
-      {filteredLunch && pageLoaded && (
+      {filteredLunch && pageLoaded ? (
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12 no-padding">
@@ -173,23 +183,12 @@ const Lunch = ({ lunchListData }: any) => {
             </div>
           </div>
         </div>
+      ) : (
+        <Loading />
       )}
     </section>
   );
 };
-
-// `getStaticPaths` requires using `getStaticProps`
-export async function getStaticProps(context: any) {
-  const sheet = await getLunchList();
-  return {
-    props: {
-      lunchListData: sheet
-        .slice(0, sheet.length)
-        .filter((l) => !!l.isDisplayed && l.isDisplayed !== "FALSE"), // remove sheet header
-    },
-    revalidate: 1, // In seconds
-  };
-}
 
 Lunch.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>;
 
