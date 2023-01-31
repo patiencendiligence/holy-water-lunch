@@ -1,12 +1,17 @@
 import styled from "@emotion/styled";
+
+interface ILoadingProps {
+  endWidth?: string;
+}
 const LoaderStyle = styled.svg`
-  animation: duck 30s linear infinite normal forwards;
+  animation: duck ${(props) => (props.endWidth ? "10s" : "30s")} linear infinite
+    normal forwards;
   @keyframes duck {
     0% {
       transform: translate(20px, 0);
     }
     100% {
-      transform: translate(100vw, 0);
+      transform: translate(${(props) => props.endWidth || "100vw"}, 0);
     }
   }
   #duck_head {
@@ -41,10 +46,10 @@ const LoaderStyle = styled.svg`
     }
   }
 `;
-const Loading = () => {
+const Loading = ({ ...props }: ILoadingProps) => {
   return (
     <>
-      <LoaderStyle>
+      <LoaderStyle {...props}>
         <svg
           id="e4plAnYPWs21"
           xmlns="http://www.w3.org/2000/svg"
