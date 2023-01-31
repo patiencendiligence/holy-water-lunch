@@ -85,7 +85,11 @@ const Lunch = () => {
                 backgroundPosition: "center",
               }}
             >
-              <span className="text-sm">이미지가 없어요..</span>
+              <span className="text-sm text-center">
+                <Loading endWidth="100%" />
+                <br />
+                이미지가 없어요..
+              </span>
             </div>
           )}
         </>
