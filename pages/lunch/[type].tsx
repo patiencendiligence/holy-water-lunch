@@ -118,9 +118,9 @@ const Lunch = () => {
   useEffect(() => {
     const filterLunchList = () => {
       setFilteredLunch(lunchData.filter((i: ILunch) => i?.type === thisType));
+      setPageLoaded(true);
     };
     filterLunchList();
-    setPageLoaded(true);
   }, [lunchData, thisType]);
   useEffect(() => {
     if (data && data.data && data.data.length > 0) {
@@ -130,7 +130,7 @@ const Lunch = () => {
 
   return (
     <section className="work-carousel metro position-re">
-      {filteredLunch && pageLoaded ? (
+      {filteredLunch && !!pageLoaded ? (
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12 no-padding">
