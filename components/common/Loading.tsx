@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 interface ILoadingProps {
   endWidth?: string;
 }
-const LoaderStyle = styled.svg`
+const LoaderStyle = styled.svg<{ endWidth: string | undefined }>`
   animation: duck ${(props) => (props.endWidth ? "10s" : "30s")} linear infinite
     normal forwards;
   @keyframes duck {
@@ -49,7 +49,7 @@ const LoaderStyle = styled.svg`
 const Loading = ({ ...props }: ILoadingProps) => {
   return (
     <>
-      <LoaderStyle {...props}>
+      <LoaderStyle endWidth={props.endWidth}>
         <svg
           id="e4plAnYPWs21"
           xmlns="http://www.w3.org/2000/svg"

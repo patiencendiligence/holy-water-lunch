@@ -8,10 +8,8 @@ interface ISeoProps {
 const Seo = ({ title }: ISeoProps) => {
   const [titleText, setTitleText] = useState("");
   useEffect(() => {
-    if (title) {
-      setTitleText(title);
-    }
-  }, []);
+    setTitleText(title);
+  }, [title]);
   return (
     <>
       <Head>
