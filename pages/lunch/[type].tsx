@@ -13,10 +13,16 @@ import "swiper/css/scrollbar";
 
 const Lunch = () => {
   const router = useRouter();
+  const [pageLoaded, setPageLoaded] = useState(false);
+  const [lunchData, setLunchData] = useState([]);
+  const [filteredLunch, setFilteredLunch] = useState([]);
   const lunchTypeKeys = options.map((t: any) => {
     return t.value;
   });
-
+  const thisType =
+    router?.query?.type !== "random"
+      ? router.query.type
+      : lunchTypeKeys[Math.floor(Math.random() * lunchTypeKeys.length)];
   const Data = ({
     sort,
     name,
@@ -97,9 +103,6 @@ const Lunch = () => {
     );
   };
 
-  const [pageLoaded, setPageLoaded] = useState(false);
-  const [filteredLunch, setFilteredLunch] = useState([]);
-
   const fetcher = async () =>
     await fetch("/api/getList", {
       method: "GET",
@@ -113,17 +116,16 @@ const Lunch = () => {
   const { data, error } = useSWR("/api/getList", fetcher);
 
   useEffect(() => {
-    if (data && data.data) {
-      const thisType =
-        router?.query?.type !== "random"
-          ? router.query.type
-          : lunchTypeKeys[Math.floor(Math.random() * lunchTypeKeys.length)];
-      const filteredLunch = data.data.filter(
-        (i: ILunch) => i?.type === thisType
-      );
-      setFilteredLunch(filteredLunch);
-    }
+    const filterLunchList = () => {
+      setFilteredLunch(lunchData.filter((i: ILunch) => i?.type === thisType));
+    };
+    filterLunchList();
     setPageLoaded(true);
+  }, [lunchData, thisType]);
+  useEffect(() => {
+    if (data && data.data && data.data.length > 0) {
+      setLunchData(data.data);
+    }
   }, [data]);
 
   return (
@@ -146,7 +148,6 @@ const Lunch = () => {
                   }}
                   grabCursor={true}
                   centeredSlides={true}
-                  lazy={true}
                   observer={true}
                   observeParents={true}
                   speed={1000}
