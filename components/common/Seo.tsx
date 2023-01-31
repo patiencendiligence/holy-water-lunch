@@ -1,14 +1,21 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
 
 interface ISeoProps {
   title: string;
 }
 
 const Seo = ({ title }: ISeoProps) => {
+  const [titleText, setTitleText] = useState("");
+  useEffect(() => {
+    if (title) {
+      setTitleText(title);
+    }
+  }, []);
   return (
     <>
       <Head>
-        <title>{title} | HolyWaterLunch</title>
+        <title>{titleText} | HolyWaterLunch</title>
         <meta property="og:url" content="https://holywater-lunch.vercel.app" />
         <meta property="og:title" content="HOLY WATER LUNCH" />
         <meta property="og:type" content="website" />
