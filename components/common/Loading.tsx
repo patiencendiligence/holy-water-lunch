@@ -8,7 +8,7 @@ const LoaderStyle = styled.svg<{ endWidth: string | undefined }>`
     normal forwards;
   @keyframes duck {
     0% {
-      transform: translate(20px, 0);
+      transform: translate(-300px, 0);
     }
     100% {
       transform: translate(${(props) => props.endWidth || "100vw"}, 0);
