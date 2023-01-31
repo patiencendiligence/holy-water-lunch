@@ -51,7 +51,7 @@ const Lunch = () => {
           </button>
         </div>
         {imageUrl && imageUrl !== "" && (
-          <picture className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl">
+          <picture className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl swiper-lazy">
             <source
               media="(max-width: 98%)"
               srcSet={imageSrc}
@@ -135,6 +135,9 @@ const Lunch = () => {
                   loop={true}
                   pagination={{
                     clickable: true,
+                  }}
+                  lazy={{
+                    loadPrevNext: true, // 이전, 다음 이미지는 미리 로딩
                   }}
                   grabCursor={true}
                   centeredSlides={true}
