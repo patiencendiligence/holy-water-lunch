@@ -118,12 +118,12 @@ const Lunch = () => {
   useEffect(() => {
     const filterLunchList = () => {
       setFilteredLunch(lunchData.filter((i: ILunch) => i?.type === thisType));
-      setPageLoaded(true);
     };
     filterLunchList();
   }, [lunchData, thisType]);
   useEffect(() => {
     if (data && data.data && data.data.length > 0) {
+      setPageLoaded(true);
       setLunchData(data.data);
     }
   }, [data]);
@@ -193,7 +193,7 @@ const Lunch = () => {
           </div>
         </div>
       ) : (
-        <Loading />
+        <Loading text="Loading..." />
       )}
     </section>
   );
