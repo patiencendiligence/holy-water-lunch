@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 interface ILoadingProps {
   endWidth?: string;
+  text?: string;
 }
 const LoaderStyle = styled.svg<{ endWidth: string | undefined }>`
   animation: duck ${(props) => (props.endWidth ? "10s" : "30s")} linear infinite
@@ -49,6 +50,7 @@ const LoaderStyle = styled.svg<{ endWidth: string | undefined }>`
 const Loading = ({ ...props }: ILoadingProps) => {
   return (
     <>
+      {props.text && <p className="text-center pt-4">{props.text}</p>}
       <LoaderStyle endWidth={props.endWidth}>
         <svg
           id="e4plAnYPWs21"
