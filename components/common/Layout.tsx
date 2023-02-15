@@ -52,7 +52,7 @@ export default function Layout({ children }: Props) {
       ? storage.getItem("prevPath")
       : "/";
   return (
-    <div className="font-sans relative px-4 items-start sm:px-6 md:px-4 lg:px-4 py-6 text-2xl mx-auto bg-black min-h-screen">
+    <div className="font-sans relative px-4 items-start sm:px-6 md:px-4 lg:px-4 py-6 text-2xl mx-auto bg-black h-screen overflow-y-auto">
       <Seo title={title} />
       <HomeContainer>
         {title !== "Home" && (
