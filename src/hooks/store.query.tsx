@@ -17,7 +17,6 @@ export const useLunchList = () => {
     },
     {
       keepPreviousData: true,
-      refetchOnMount: "always",
       onError: ({
         data: {
           error: { code, userMessage, message },
