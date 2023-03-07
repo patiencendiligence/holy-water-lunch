@@ -1,5 +1,10 @@
 import "../styles/globals.css";
-import { ReactElement, ReactNode, useEffect } from "react";
+import {
+  QueryClient,
+  QueryClientProvider,
+  QueryFunctionContext,
+} from "react-query";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
@@ -14,7 +19,6 @@ interface AppPropsWithLayout extends AppProps {
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const router = useRouter();
-
   useEffect(() => storePathValues, [router.asPath]);
 
   function storePathValues() {
@@ -26,8 +30,25 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     // Set the current path value by looking at the browser's location object.
     storage.setItem("currentPath", globalThis.location.pathname);
   }
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        cacheTime: 300 * 1_000,
+        keepPreviousData: false,
+        refetchOnWindowFocus: false,
+        retry: false,
+        staleTime: 60 * 1_000,
+      },
+    },
+  });
+
   const getLayout = Component.getLayout ?? ((page) => page);
-  return getLayout(<Component {...pageProps} />);
+  return (
+    <QueryClientProvider client={queryClient}>
+      {getLayout(<Component {...pageProps} />)}
+    </QueryClientProvider>
+    //  <QueryProvider pageProps={pageProps}>{getLayout(<Component {...pageProps} />)}</QueryProvider>
+  );
 };
 
 export default App;

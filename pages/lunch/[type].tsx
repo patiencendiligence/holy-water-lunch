@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import useSWR from "swr";
+import { useLunchList } from "@/hooks/store.query";
 import WaterSvg from "components/common/WaterSvg";
 import Layout from "components/common/Layout";
 import Loading from "components/common/Loading";
@@ -13,8 +13,6 @@ import "swiper/css/scrollbar";
 
 const Lunch = () => {
   const router = useRouter();
-  const [pageLoaded, setPageLoaded] = useState(false);
-  const [lunchData, setLunchData] = useState([]);
   const [filteredLunch, setFilteredLunch] = useState([]);
   const lunchTypeKeys = options.map((t: any) => {
     return t.value;
@@ -102,35 +100,25 @@ const Lunch = () => {
       </div>
     );
   };
-
-  const fetcher = async () =>
-    await fetch("/api/getList", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      return response.json();
-    });
-  const { data, error } = useSWR("/api/getList", fetcher);
+  const { data, isLoading } = useLunchList();
+  const [lunchList, setLunchList] = useState([]);
+  useEffect(() => {
+    if (data?.data && !isLoading) setLunchList(data.data);
+  }, [data]);
 
   useEffect(() => {
     const filterLunchList = () => {
-      setFilteredLunch(lunchData.filter((i: ILunch) => i?.type === thisType));
+      setFilteredLunch(lunchList.filter((i: ILunch) => i?.type === thisType));
     };
     filterLunchList();
-  }, [lunchData, thisType]);
-  useEffect(() => {
-    if (data && data.data && data.data.length > 0) {
-      setPageLoaded(true);
-      setLunchData(data.data);
-    }
-  }, [data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lunchList, thisType]);
 
   return (
     <section className="work-carousel metro position-re">
-      {filteredLunch && !!pageLoaded ? (
+      {isLoading ? (
+        <Loading text="Loading..." />
+      ) : (
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12 no-padding">
@@ -192,8 +180,6 @@ const Lunch = () => {
             </div>
           </div>
         </div>
-      ) : (
-        <Loading text="Loading..." />
       )}
     </section>
   );

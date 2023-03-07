@@ -1,37 +1,19 @@
 import Layout from "components/common/Layout";
 import Loading from "components/common/Loading";
-import { useState, useEffect } from "react";
-import useSWR from "swr";
+import { useEffect, useState } from "react";
+import { useLunchList } from "@/hooks/store.query";
 
 const LunchList = () => {
-  const [pageLoaded, setPageLoaded] = useState(false);
-  const [lunchListData, setLunchListData] = useState([]);
-
-  const fetcher = async () =>
-    await fetch("/api/getList", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      return response.json();
-    });
-  const { data, error } = useSWR("/api/getList", fetcher);
-
+  const { data, isLoading } = useLunchList();
+  const [lunchList, setLunchList] = useState([]);
   useEffect(() => {
-    if (data && data.data) {
-      setLunchListData(data.data);
-    }
-    setPageLoaded(true);
+    if (data?.data && !isLoading) setLunchList(data.data);
   }, [data]);
-
   return (
     <>
       <ul className="mx-auto max-w-md p-2 shadow">
-        {!pageLoaded && <Loading />}
-        {lunchListData && lunchListData.length ? (
-          lunchListData.map((item: any, index: number) => (
+        {lunchList && lunchList.length > 0 ? (
+          lunchList.map((item: any, index: number) => (
             <Lunch
               key={index}
               sort={item.sort}
