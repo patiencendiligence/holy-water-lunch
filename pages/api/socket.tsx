@@ -18,12 +18,25 @@ export default function SocketHandler(
   const io = new Server(res.socket.server);
   res.socket.server.io = io;
 
-  const onConnection = (socket: any) => {
-    messageHandler(io, socket);
-  };
-
   // Define actions inside
-  io.on("connection", onConnection);
+  io.on("connection", function (socket: any) {
+    messageHandler(io, socket);
+    socket.on("newUserConnect", function (name: any) {
+      socket.name = name;
+
+      socket.broadcast.emit("updateMessage", {
+        name: "SERVER",
+        message: name + "님이 접속했습니다.",
+      });
+    });
+
+    socket.on("disconnect", function () {
+      socket.broadcast.emit("updateMessage", {
+        name: "SERVER",
+        message: socket.name + "님이 퇴장했습니다.",
+      });
+    });
+  });
 
   console.log("Setting up socket");
   res.end();
