@@ -85,6 +85,10 @@ export default function Chat() {
   const [messages, setMessages] = useState<Array<Message>>([]);
 
   useEffect(() => {
+    socket = io();
+    socket.emit("newUserConnect", username);
+  }, [username]);
+  useEffect(() => {
     setUsername(nameMaker());
     socketInitializer();
   }, []);
@@ -123,7 +127,7 @@ export default function Chat() {
   return (
     <div className="flex items-center p-4 mx-auto min-h-screen justify-center bg-purple-500">
       <div className="gap-4 flex flex-col items-center justify-center w-full h-full">
-        <p className="font-bold  text-xl">👋 {username}님, 안녕하세요!</p>
+        <p className="font-bold  text-xl">{username}님, 안녕하세요!👋</p>
         <div className="flex flex-col justify-end bg-white h-[20rem] min-w-[33%] rounded-md shadow-md text-black ">
           <div className="h-full last:border-b-0 overflow-y-scroll">
             {messages.map((msg, i) => {
