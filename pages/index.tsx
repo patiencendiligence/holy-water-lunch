@@ -86,6 +86,7 @@ const lunchType = [
     type: "normal",
   },
   { name: "?", color: "#047462", width: "18%", href: "/about", type: "normal" },
+  { name: "💬", color: "#c766e7", width: "18%", href: "/chat", type: "normal" },
 ];
 export default function Home() {
   useEffect(() => {
