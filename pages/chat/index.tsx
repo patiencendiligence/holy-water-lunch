@@ -88,7 +88,8 @@ export default function Chatting() {
 
   useEffect((): any => {
     // connect to socket server
-    const socket = SocketIOClient.connect(process.env.NEXT_PUBLIC_API_URL, {
+
+    const socket = SocketIOClient({
       path: "/api/chat/socketio",
     });
 
@@ -125,7 +126,9 @@ export default function Chatting() {
   };
 
   const submitSendMessage = async (
-    event: React.FormEvent<HTMLButtonElement>
+    event:
+      | React.FormEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
     if (sendMessage && sendMessage !== "") {
