@@ -73,7 +73,7 @@ const Lunch = () => {
           <p className="mt-1 text-base leading-7 text-slate-300 max-w-2xl">
             {description}
           </p>
-          {priceRate && priceRate > 0 && (
+          {priceRate && +priceRate > 0 && (
             <p className="font-mono text-sm leading-7 text-slate-500">
               <span>평균 {priceRate}원</span>
             </p>
