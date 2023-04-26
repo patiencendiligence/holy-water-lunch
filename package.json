@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "vercel-deploy": "next build && next export"
+    "netlify-deploy": "next build && next export"
   },
   "resolutions": {
     "@types/react": "17.0.2",
