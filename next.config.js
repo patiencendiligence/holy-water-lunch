@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: `${process.env.NEXT_PUBLIC_ENV_API_URI}/:path*`,
+        destination: `/:path*`,
       },
     ];
   },
