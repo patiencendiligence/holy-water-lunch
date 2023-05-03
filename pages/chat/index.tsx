@@ -79,7 +79,7 @@ const nameMaker = function () {
   }`;
 };
 
-export default function Chatting() {
+const Chatting = () => {
   const [username, setUsername] = useState("");
   const [sendMessage, setSendMessage] = useState<string>("");
   const [connected, setConnected] = useState<boolean>(false);
@@ -190,4 +190,7 @@ export default function Chatting() {
       </div>
     </div>
   );
-}
+};
+
+Chatting.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>;
+export default Chatting;
