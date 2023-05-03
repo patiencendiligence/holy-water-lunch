@@ -156,8 +156,12 @@ const Chatting = () => {
   };
   return (
     <div className="w-full h-full min-h-screen justify-center px-4">
-      <p className="font-bold text-xl py-5">{username}님, 안녕하세요!👋</p>
-      <div className="flex flex-col justify-end bg-white h-[40rem] min-w-[45%] rounded-md shadow-md text-black ">
+      <p className="font-bold text-xl text-white pt-6 pb-2">
+        {username}님,
+        <br />
+        안녕하세요!👋
+      </p>
+      <div className="flex flex-col justify-end bg-white h-[25rem] min-w-[45%] rounded-md shadow-md text-black ">
         <div className="h-full last:border-b-0 overflow-y-scroll">
           {chat.length ? (
             chat.map((chat, index) => (
