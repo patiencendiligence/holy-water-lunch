@@ -12,7 +12,7 @@ const lunchType = [
     name: "RANDOM",
     color: " #ee7c01",
     width: "43%",
-    href: "/lunch/random",
+    href: "/lunch/RandomLunch",
     type: "normal",
   },
   {

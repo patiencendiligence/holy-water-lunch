@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { useLunchList } from "@/hooks/store.query";
 import WaterSvg from "components/common/WaterSvg";
@@ -10,11 +10,16 @@ import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
-
-const Lunch = () => {
+import Map from "../api/map";
+const RandomLunch = () => {
   const router = useRouter();
+  const mapRef = useRef<any>(null);
   const [filteredLunch, setFilteredLunch] = useState([]);
-  const thisType = router.query.type;
+  const lunchTypeKeys = options.map((t: any) => {
+    return t.value;
+  });
+  const thisType =
+    lunchTypeKeys[Math.floor(Math.random() * lunchTypeKeys.length)];
   const Data = ({
     sort,
     name,
@@ -48,6 +53,13 @@ const Lunch = () => {
             Move detail
           </button>
         </div>
+
+        <div
+          id="vmap"
+          ref={mapRef}
+          style={{ width: "100%", height: "350px", left: 0, top: 0 }}
+        ></div>
+
         {imageUrl && imageUrl !== "" && (
           <picture className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl swiper-lazy">
             <source
@@ -96,15 +108,50 @@ const Lunch = () => {
   };
   const { data, isLoading } = useLunchList();
   const [lunchList, setLunchList] = useState([]);
+
   useEffect(() => {
     if (data?.data && !isLoading) setLunchList(data.data);
   }, [data]);
+  const vmap = mapRef.current?.vmap;
+  const fnMoveZoom = () => {
+    const zoom = vmap.getView().getZoom();
+    if (16 > zoom) {
+      return vmap.getView().setZoom(14);
+    }
+  };
+  const move = (swiper: any) => {
+    console.log(swiper, "???????");
+    const x = 0;
+    const y = 0;
+    const z = 0;
+    const _center = [x, y];
+    var pan = vmap.ol.animation.pan({
+      duration: 2000,
+      source: vmap.getView().getCenter(),
+    });
+    vmap.beforeRender(pan);
+    vmap.getView().setCenter(_center);
+    setTimeout(fnMoveZoom(), 3000);
+  };
+  const setMap = (vw: any) => {
+    const options = {
+      basemapType: vw.ol3.BasemapType.GRAPHIC,
+      controlDensity: vw.ol3.DensityType.EMPTY,
+      interactionDensity: vw.ol3.DensityType.BASIC,
+      controlsAutoArrange: true,
+      homePosition: vw.ol3.CameraPosition,
+      initPosition: vw.ol3.CameraPosition,
+    };
 
+    const vmap = new vw.ol3.Map("vmap", options);
+  };
   useEffect(() => {
     const filterLunchList = () => {
       setFilteredLunch(lunchList.filter((i: ILunch) => i?.type === thisType));
     };
     filterLunchList();
+    const vw = Map();
+    setMap(vw);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lunchList, thisType]);
 
@@ -150,6 +197,7 @@ const Lunch = () => {
                       slidesPerView: 1,
                     },
                   }}
+                  onSlideChange={(swiper) => move(swiper)}
                 >
                   {filteredLunch.map((item: ILunch, index: number) => (
                     <SwiperSlide
@@ -179,6 +227,6 @@ const Lunch = () => {
   );
 };
 
-Lunch.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>;
+RandomLunch.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>;
 
-export default Lunch;
+export default RandomLunch;
