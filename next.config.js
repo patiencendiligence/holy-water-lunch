@@ -10,7 +10,9 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
-
+  api: {
+    responseLimit: "8mb",
+  },
   // experimental: {
   //   externalDir:
   //     true |

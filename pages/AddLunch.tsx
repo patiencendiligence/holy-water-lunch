@@ -5,6 +5,7 @@ import Select from "react-select";
 import WaterSvg from "components/common/WaterSvg";
 import Layout from "components/common/Layout";
 import Toast from "components/common/Toast";
+import ImageUpload from "components/common/ImageUpload";
 
 const AddLunch = () => {
   const [name, setName] = useState("");
@@ -149,9 +150,15 @@ const AddLunch = () => {
           />
         </div>
         <div className="grid gap-x-4 grid-cols-3">
+          <label className="ml-2 row-span-2 text-base">
+            이미지 <em className="text-red-500"> *</em>
+          </label>
+          <ImageUpload />
+        </div>
+        <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">평균 가격대</label>
           <input
-            className="form-input px-4 py-2 text-black col-span-2 w-full  rounded-md"
+            className="form-input px-4 py-2 text-black col-span-2 w-full rounded-md"
             type="text"
             placeholder="ex: ~10000원"
           />
