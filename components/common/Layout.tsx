@@ -2,7 +2,7 @@ import Seo from "./Seo";
 import styled from "@emotion/styled";
 import SvgButton from "components/common/SvgButton";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { title } from "process";
 const HomeContainer = styled.div`
   display: flex;
@@ -42,9 +42,34 @@ const checkTitle = (router: any) => {
 export default function Layout({ children }: Props) {
   const [pageLoaded, setPageLoaded] = useState(false);
   const router = useRouter();
+  const currentRef = useRef<HTMLInputElement>(null);
+
+  const notchHeight =
+    typeof window !== "undefined"
+      ? window
+          .getComputedStyle(document.documentElement)
+          .getPropertyValue("--sat")
+      : "100vh";
+  const offset = 100 + Number(notchHeight.substring(0, notchHeight.length - 2));
+
+  const checkNotch = () => {
+    console.log(
+      currentRef?.current?.offsetTop,
+      "currentRef?.current?.offsetTop"
+    );
+    if (currentRef && currentRef?.current?.offsetTop) {
+      if (typeof window !== "undefined") {
+        window.scrollTo({
+          top: currentRef?.current?.offsetTop - offset,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
   useEffect(() => {
     setPageLoaded(true);
     checkTitle(router);
+    checkNotch();
   }, [router]);
   const storage = globalThis?.sessionStorage;
   const link =
@@ -52,9 +77,9 @@ export default function Layout({ children }: Props) {
       ? storage.getItem("prevPath")
       : "/";
   return (
-    <div className="font-sans relative px-4 items-start sm:px-6 md:px-4 lg:px-4 py-6 text-2xl mx-auto bg-black h-screen overflow-y-auto">
+    <div className="font-sans relative px-4 items-start sm:px-6 md:px-4 lg:px-4 py-6 text-2xl mx-auto bg-black h-screen overflow-y-auto py-10">
       <Seo title={title} />
-      <HomeContainer>
+      <HomeContainer ref={currentRef}>
         {title !== "Home" && (
           <button
             className="origin-top-right fixed top-0 right-5 z-10"
