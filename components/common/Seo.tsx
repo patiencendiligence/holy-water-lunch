@@ -7,6 +7,7 @@ interface ISeoProps {
 
 const Seo = ({ title }: ISeoProps) => {
   const [titleText, setTitleText] = useState("");
+
   useEffect(() => {
     setTitleText(title);
   }, [title]);

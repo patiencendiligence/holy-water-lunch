@@ -117,7 +117,6 @@ const Chatting = () => {
   const sendMessageHandler = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSendMessage(event.target.value);
-      scrollToBottom();
     },
     [sendMessage]
   );
