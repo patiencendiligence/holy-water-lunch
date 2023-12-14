@@ -5,30 +5,29 @@ import { useLunchList } from "@/hooks/store.query";
 
 const LunchList = () => {
   const [lunchList, setLunchList] = useState([]);
-  const { data, isLoading } = useLunchList();
+  const { data, isLoading, isFetching } = useLunchList('');
   useEffect(() => {
-    if (data?.data && !isLoading) setLunchList(data.data);
+    if (data?.data) setLunchList(data.data);
   }, [data]);
+
+  if (isLoading || isFetching) return <Loading />;
   return (
     <>
       <ul className="mx-auto max-w-md p-2 shadow">
-        {lunchList && lunchList?.length > 0 ? (
-          lunchList.map((item: any, index: number) => (
-            <Lunch
-              key={index}
-              sort={item.sort}
-              type={item.type}
-              name={item.name}
-              menu={item.menu}
-              url={item.url}
-              imageUrl={item.imageUrl}
-              description={item.description}
-              priceRate={item.priceRate}
-            ></Lunch>
-          ))
-        ) : (
-          <Loading />
-        )}
+        {lunchList?.map((item: any, index: number) => (
+          <Lunch
+            key={index}
+            sort={item.sort}
+            type={item.type}
+            name={item.name}
+            menu={item.menu}
+            url={item.url}
+            imageUrl={item.imageUrl}
+            description={item.description}
+            priceRate={item.priceRate}
+          ></Lunch>
+        ))
+        }
       </ul>
     </>
   );

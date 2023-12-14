@@ -1,4 +1,3 @@
-import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import { useLunchList } from "@/hooks/store.query";
 import Data from "./Data";
@@ -13,7 +12,6 @@ import "swiper/css/scrollbar";
 
 const TargetLunch = () => {
   const router = useRouter();
-  const { data, isLoading } = useLunchList();
   const lunchTypeKeys = options?.map((t: any) => {
     return t.value;
   });
@@ -21,82 +19,73 @@ const TargetLunch = () => {
     router?.query?.type !== "random"
       ? router.query.type
       : lunchTypeKeys[Math.floor(Math.random() * lunchTypeKeys.length)];
-
-  const filteredLunch = useMemo(() => {
-    console.log(data, ' :::Data');
-    return (data?.data?.filter((i: Lunch) => i?.type === thisType));
-  }, [router.query, data]);
-
-
+  const { data, isLoading, isFetching } = useLunchList(thisType ?? '');
+  if (isLoading || isFetching) return <Loading text="Loading..." />;
   return (
     <section className="work-carousel metro position-re">
-      {isLoading ? (
-        <Loading text="Loading..." />
-      ) : (
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-12 no-padding">
-              <div className="swiper-container" style={{ width: "100vw" }}>
-                {filteredLunch?.length ?
-                  <Swiper
-                    className="swiper-wrapper"
-                    modules={[Navigation]}
-                    spaceBetween={30}
-                    loop={true}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    lazy={{
-                      loadPrevNext: true, // 이전, 다음 이미지는 미리 로딩
-                    }}
-                    grabCursor={true}
-                    centeredSlides={true}
-                    observer={true}
-                    observeParents={true}
-                    speed={1000}
-                    breakpoints={{
-                      320: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                      },
-                      640: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                      },
-                      767: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                      },
-                      991: {
-                        slidesPerView: 1,
-                      },
-                    }}
-                  >
-                    {filteredLunch?.map((item: Lunch, index: number) => (
-                      <SwiperSlide
-                        className="swiper-slide"
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-12 no-padding" style={{ height: `calc(100vh - 100px)`, overflow: `scroll` }}>
+            <div className="swiper-container" style={{ width: "100vw" }}>
+              {data?.length ?
+                <Swiper
+                  className="swiper-wrapper"
+                  modules={[Navigation]}
+                  spaceBetween={30}
+                  loop={true}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  lazy={{
+                    loadPrevNext: true, // 이전, 다음 이미지는 미리 로딩
+                  }}
+                  grabCursor={true}
+                  centeredSlides={true}
+                  observer={true}
+                  observeParents={true}
+                  speed={1000}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    640: {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    767: {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    991: {
+                      slidesPerView: 1,
+                    },
+                  }}
+                >
+                  {data?.map((item: Lunch, index: number) => (
+                    <SwiperSlide
+                      className="swiper-slide"
+                      key={item.name + "-" + index}
+                    >
+                      <Data
                         key={item.name + "-" + index}
-                      >
-                        <Data
-                          key={item.name + "-" + index}
-                          sort={item.sort}
-                          type={item.type}
-                          name={item.name}
-                          menu={item.menu}
-                          url={item.url}
-                          imageUrl={item.imageUrl}
-                          description={item.description}
-                          priceRate={item.priceRate}
-                        ></Data>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                  : ''}
-              </div>
+                        sort={item.sort}
+                        type={item.type}
+                        name={item.name}
+                        menu={item.menu}
+                        url={item.url}
+                        imageUrl={item.imageUrl}
+                        description={item.description}
+                        priceRate={item.priceRate}
+                      ></Data>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                : ''}
             </div>
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 };
@@ -104,3 +93,4 @@ const TargetLunch = () => {
 TargetLunch.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>;
 
 export default TargetLunch;
+

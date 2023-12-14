@@ -14,6 +14,12 @@ const HomeContainer = styled.div`
   justify-content: space-evenly;
   align-items: center;
   overflow: hidden;
+  & button.back {
+    position: fixed;
+    top: 0;
+    right: 5px;
+    z-index: 10;
+  }
 `;
 
 type Props = {
@@ -82,7 +88,7 @@ export default function Layout({ children }: Props) {
       <HomeContainer ref={currentRef}>
         {title !== "Home" && (
           <button
-            className="origin-top-right fixed top-0 right-5 z-10"
+            className="back"
             type="button"
             onClick={() => link && router.push(link)}
           >
