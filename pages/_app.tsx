@@ -24,10 +24,8 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   function storePathValues() {
     const storage = globalThis?.sessionStorage;
     if (!storage || !storage.getItem("currentPath")) return;
-    // Set the previous path as the value of the current path.
     const prevPath = storage.getItem("currentPath");
     storage.setItem("prevPath", prevPath ?? "/");
-    // Set the current path value by looking at the browser's location object.
     storage.setItem("currentPath", globalThis.location.pathname);
   }
   const queryClient = new QueryClient({
@@ -47,7 +45,6 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     <QueryClientProvider client={queryClient}>
       {getLayout(<Component {...pageProps} />)}
     </QueryClientProvider>
-    //  <QueryProvider pageProps={pageProps}>{getLayout(<Component {...pageProps} />)}</QueryProvider>
   );
 };
 

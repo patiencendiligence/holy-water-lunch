@@ -1,18 +1,18 @@
-import Layout from "components/common/Layout";
-import Loading from "components/common/Loading";
+import Layout from "@/components/common/Layout";
+import Loading from "@/components/common/Loading";
 import { useEffect, useState } from "react";
 import { useLunchList } from "@/hooks/store.query";
 
 const LunchList = () => {
-  const { data, isLoading } = useLunchList();
   const [lunchList, setLunchList] = useState([]);
+  const { data, isLoading } = useLunchList();
   useEffect(() => {
     if (data?.data && !isLoading) setLunchList(data.data);
   }, [data]);
   return (
     <>
       <ul className="mx-auto max-w-md p-2 shadow">
-        {lunchList && lunchList.length > 0 ? (
+        {lunchList && lunchList?.length > 0 ? (
           lunchList.map((item: any, index: number) => (
             <Lunch
               key={index}

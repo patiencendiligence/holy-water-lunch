@@ -1,6 +1,6 @@
 import Seo from "./Seo";
 import styled from "@emotion/styled";
-import SvgButton from "components/common/SvgButton";
+import SvgButton from "@/components/common/SvgButton";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { title } from "process";
@@ -32,10 +32,10 @@ const checkTitle = (router: any) => {
     router.query && router.query.type
       ? JSON.stringify(router.query.type)
       : pathName && !!pathName.match("LunchList")
-      ? "LunchList"
-      : pathName !== "/"
-      ? JSON.stringify(pathName)
-      : ("Home" as const);
+        ? "LunchList"
+        : pathName !== "/"
+          ? JSON.stringify(pathName)
+          : ("Home" as const);
   console.log(title, "title");
   return title;
 };
@@ -47,8 +47,8 @@ export default function Layout({ children }: Props) {
   const notchHeight =
     typeof window !== "undefined"
       ? window
-          .getComputedStyle(document.documentElement)
-          .getPropertyValue("--sat")
+        .getComputedStyle(document.documentElement)
+        .getPropertyValue("--sat")
       : "100vh";
   const offset = 100 + Number(notchHeight.substring(0, notchHeight.length - 2));
 

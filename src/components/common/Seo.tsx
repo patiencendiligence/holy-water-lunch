@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 
-interface ISeoProps {
+interface SeoProps {
   title: string;
 }
 
-const Seo = ({ title }: ISeoProps) => {
+const Seo = ({ title }: SeoProps) => {
   const [titleText, setTitleText] = useState("");
 
   useEffect(() => {

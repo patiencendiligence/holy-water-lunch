@@ -1,4 +1,4 @@
-import Layout from "components/common/Layout";
+import Layout from "@/components/common/Layout";
 import { useState, useEffect, useCallback, useRef } from "react";
 // * Socket.io
 import SocketIOClient from "socket.io-client";
@@ -74,9 +74,8 @@ const nameMaker = function () {
     "케잌🍰",
     "김밥🍙",
   ];
-  return `${feelings[Math.floor(Math.random() * feelings.length)]} ${
-    foods[Math.floor(Math.random() * foods.length)]
-  }`;
+  return `${feelings[Math.floor(Math.random() * feelings.length)]} ${foods[Math.floor(Math.random() * foods.length)]
+    }`;
 };
 
 const Chatting = () => {

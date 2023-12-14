@@ -2,7 +2,7 @@ export type OptionType = {
   value: string;
   label: string;
 };
-export interface ILunch {
+export interface Lunch {
   sort?: string;
   name: string;
   type: OptionType | string;
