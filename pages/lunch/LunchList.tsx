@@ -5,15 +5,15 @@ import { useLunchList } from "@/hooks/store.query";
 
 const LunchList = () => {
   const [lunchList, setLunchList] = useState([]);
-  const { data, isLoading, isFetching } = useLunchList('');
+  const { data, isLoading, isFetching } = useLunchList();
   useEffect(() => {
-    if (data?.data) setLunchList(data.data);
+    if (data) setLunchList(data);
   }, [data]);
 
   if (isLoading || isFetching) return <Loading />;
   return (
     <>
-      <ul className="mx-auto max-w-md p-2 shadow">
+      <ul className="mx-auto max-w-md p-2 shadow" style={{ height: `calc(100vh - 100px)`, overflow: `scroll` }}>
         {lunchList?.map((item: any, index: number) => (
           <Lunch
             key={index}
