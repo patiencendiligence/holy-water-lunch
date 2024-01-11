@@ -3,7 +3,6 @@ import Toast from "@/components/common/Toast";
 import WaterSvg from "@/components/common/WaterSvg";
 import { options } from "@/components/common/types";
 import { DefaultTarget, RegisterOptions } from "@/constants";
-import Image from 'next/image';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
@@ -146,7 +145,7 @@ const AddLunch = () => {
             type="submit"
           >
             {!!loading && (
-              <Image src="/assets/loading.svg" width={100} height={101} alt="submit" />
+              <img src="/assets/loading.svg" width={100} height={101} alt="submit" />
             )}
             {(!!isValid || !loading) && (
               <>

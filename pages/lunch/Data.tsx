@@ -1,7 +1,6 @@
 import Loading from "@/components/common/Loading";
 import WaterSvg from "@/components/common/WaterSvg";
 import { LunchType } from "@/components/common/types";
-import Image from 'next/image';
 import router from "next/router";
 const Data = ({
     sort,
@@ -37,15 +36,7 @@ const Data = ({
                 </button>
             </div>
             {imageUrl && imageUrl !== "" && (
-                <picture className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl swiper-lazy">
-                    <source
-                        media="(max-width: 98%)"
-                        srcSet={imageSrc}
-                        width={150}
-                        height={150}
-                    ></source>
-                    <Image src={imageSrc} width={0} height={0} sizes="100vw" alt="" />
-                </picture>
+                <img className="relative mx-auto my-4 block w-98 overflow-hidden rounded-lg bg-slate-800 shadow-xl shadow-slate-800 sm:rounded-xl lg:w-auto lg:rounded-2xl swiper-lazy" src={imageSrc} width={0} height={0} sizes="100vw" alt="" />
             )}
             <>
                 <p className="mt-3 text-lg font-medium leading-8 text-slate-500">

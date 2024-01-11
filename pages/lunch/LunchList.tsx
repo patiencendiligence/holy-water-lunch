@@ -39,8 +39,6 @@ const Lunch = ({
   type,
   menu,
   url,
-  imageUrl,
-  description,
   priceRate,
 }: LunchType) => {
   return (

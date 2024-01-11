@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface SeoProps {
   title: string;
@@ -15,7 +15,7 @@ const Seo = ({ title }: SeoProps) => {
     <>
       <Head>
         <title>{titleText} | HolyWaterLunch</title>
-        <meta property="og:url" content="https://holywater-lunch.vercel.app" />
+        <meta property="og:url" content="https://holy-water-lunch.netlify.app" />
         <meta property="og:title" content="HOLY WATER LUNCH" />
         <meta property="og:type" content="website" />
         <meta
