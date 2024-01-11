@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
-import { useLunchList } from "@/hooks/store.query";
-import Data from "./Data";
 import Layout from "@/components/common/Layout";
 import Loading from "@/components/common/Loading";
-import { Lunch, options } from "@/components/common/types";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { LunchType, options } from "@/components/common/types";
+import { useLunchList } from "@/hooks/store.query";
+import { useRouter } from "next/router";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Data from "./Data";
 
 const TargetLunch = () => {
   const router = useRouter();
@@ -62,7 +62,7 @@ const TargetLunch = () => {
                     },
                   }}
                 >
-                  {data?.map((item: Lunch, index: number) => (
+                  {data?.map((item: LunchType, index: number) => (
                     <SwiperSlide
                       className="swiper-slide"
                       key={item.name + "-" + index}

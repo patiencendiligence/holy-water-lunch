@@ -1,7 +1,6 @@
 
-import { Lunch } from "@/components/common/types";
-import { useMemo } from "react";
-import { dehydrate, useQuery } from "react-query";
+import { LunchType } from "@/components/common/types";
+import { useQuery } from "react-query";
 
 const fetchList = async (type?: string) => {
   const lunchData = await (
@@ -15,7 +14,7 @@ const fetchList = async (type?: string) => {
   ).json();
 
   console.log(lunchData, ' :::Data');
-  return (type ? lunchData?.data?.filter((i: Lunch) => i?.type === type) : lunchData?.data);
+  return (type ? lunchData?.data?.filter((i: LunchType) => i?.type === type) : lunchData?.data);
 }
 
 export const useLunchList = (type?: string) => {

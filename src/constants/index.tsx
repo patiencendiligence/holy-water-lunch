@@ -1,7 +1,7 @@
 
-import { Lunch } from "@/components/common/types";
+import { LunchType } from "@/components/common/types";
 
-export const LunchType = [
+export const LunchTypeData = [
     {
         name: "RANDOM",
         color: " #ee7c01",
@@ -91,7 +91,7 @@ export const LunchType = [
     },
 ];
 
-export const DefaultTarget: Lunch = {
+export const DefaultTarget: LunchType = {
     name: '',
     type: '',
     description: '',
