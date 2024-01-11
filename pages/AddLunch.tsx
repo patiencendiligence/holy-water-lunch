@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { options } from "@/components/common/types";
-import Select from "react-select";
-import WaterSvg from "@/components/common/WaterSvg";
 import Layout from "@/components/common/Layout";
 import Toast from "@/components/common/Toast";
+import WaterSvg from "@/components/common/WaterSvg";
+import { options } from "@/components/common/types";
 import { DefaultTarget, RegisterOptions } from "@/constants";
+import Image from 'next/image';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import Select from "react-select";
 
 const AddLunch = () => {
   const [targetLunch, setTargetLunch] = useState<typeof DefaultTarget>(DefaultTarget);
@@ -49,7 +50,7 @@ const AddLunch = () => {
   };
 
   const handleChange = (option: any) => {
-    setTargetLunch((prev) => { return { ...prev, type: option.value } });
+    setTargetLunch((prev: typeof DefaultTarget) => { return { ...prev, type: option.value } });
     setSelectedOption(option);
   };
 
@@ -121,7 +122,7 @@ const AddLunch = () => {
         <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">평균 가격대</label>
           <input
-            className="form-input px-4 py-2 text-black col-span-2 w-full  rounded-md"
+            className="form-input px-4 py-2 text-black col-span-2 w-full rounded-md"
             type="text"
             placeholder="ex: ~10000원"
           />
@@ -129,7 +130,7 @@ const AddLunch = () => {
         <div className="grid gap-x-4 grid-cols-3">
           <label className="ml-2 row-span-2 text-base">링크</label>
           <input
-            className="form-input px-4 py-2 text-black col-span-2 w-full  rounded-md"
+            className="form-input px-4 py-2 text-black col-span-2 w-full rounded-md"
             type="text"
             placeholder="ex: 블로그 주소, 인스타 주소 등"
           />
@@ -145,7 +146,7 @@ const AddLunch = () => {
             type="submit"
           >
             {!!loading && (
-              <img src="/assets/loading.svg" width={100} height={101} />
+              <Image src="/assets/loading.svg" width={100} height={101} alt="submit" />
             )}
             {(!!isValid || !loading) && (
               <>

@@ -1,10 +1,10 @@
 import Layout from "@/components/common/Layout";
 import Loading from "@/components/common/Loading";
-import { useEffect, useState } from "react";
+import { LunchType } from "@/components/common/types";
 import { useLunchList } from "@/hooks/store.query";
-
+import { useEffect, useState } from "react";
 const LunchList = () => {
-  const [lunchList, setLunchList] = useState([]);
+  const [lunchList, setLunchList] = useState<LunchType[]>([]);
   const { data, isLoading, isFetching } = useLunchList();
   useEffect(() => {
     if (data) setLunchList(data);
@@ -42,7 +42,7 @@ const Lunch = ({
   imageUrl,
   description,
   priceRate,
-}: any) => {
+}: LunchType) => {
   return (
     <li className="group/item relative flex items-center justify-between rounded-xl p-4  text-slate-400 hover:text-slate-200 hover:bg-slate-900/[0.8] mb-1 ">
       <div className="flex gap-4">
@@ -63,9 +63,9 @@ const Lunch = ({
             </svg>
           </a>
           <p className="text-slate-300">
-            {priceRate > 0 ? <span>평균 {priceRate}원</span> : ""}
+            {Number(priceRate) > 0 ? <span>평균 {priceRate}원</span> : ""}
             <span className="text-slate-500">
-              #{type}, #{sort}, #{menu}
+              #{typeof type === 'string' ? type : type.value}, #{sort}, #{menu}
             </span>
           </p>
         </div>

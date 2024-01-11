@@ -1,8 +1,8 @@
 import Loading from "@/components/common/Loading";
 import WaterSvg from "@/components/common/WaterSvg";
-import { Lunch } from "@/components/common/types";
+import { LunchType } from "@/components/common/types";
+import Image from 'next/image';
 import router from "next/router";
-
 const Data = ({
     sort,
     name,
@@ -13,7 +13,7 @@ const Data = ({
     description,
     priceRate,
     isDisplayed,
-}: Lunch) => {
+}: LunchType) => {
     const movePath = (path: any) => {
         console.log(typeof path);
         path && path === "asPath"
@@ -44,7 +44,7 @@ const Data = ({
                         width={150}
                         height={150}
                     ></source>
-                    <img src={imageSrc} width="100%" height="100%" alt="" />
+                    <Image src={imageSrc} width={0} height={0} sizes="100vw" alt="" />
                 </picture>
             )}
             <>
