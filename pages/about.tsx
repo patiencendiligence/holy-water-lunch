@@ -12,7 +12,7 @@ const About = () => {
 
   return (
     <>
-      <span className="text-base text-slate-200 mt-10 w-full px-6">
+      <span className="text-base text-slate-200 mt-10 w-full px-6" style={{ whiteSpace: 'pre-line' }}>
         {`HOLY WATER LUNCH는 \n서울 성수동에서의 - \n보다 짧고 성공적인- 점심메뉴 선택을 위한 앱입니다.\n\n성수동 직장인의 가성비와 취향을 고려하여 선별한 리스트들 입니다.\n\n리스트에 추가를 원하시면`}
         <button
           className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
@@ -21,17 +21,28 @@ const About = () => {
           여기 👈
         </button>
       </span>
-      <span className="text-base text-slate-200 mt-5 w-full px-6">
+      <span className="text-base text-slate-200 mt-5 w-full px-6" style={{ whiteSpace: 'pre-line' }}>
         {`앱 이름 HOLY WATER LUNCH 는 성 / 수 / 점심 입니다.\n별다른 의미 없는 말장난이예요. (종교뭐시기 아님)`}
       </span>
-      <span className="text-base text-slate-200 mt-5 w-full px-6">
-        개발자에게 하고픈 문의/요청/제보 사항이 있으시먼
+      <span className="text-base text-slate-200 mt-5 w-full px-6" style={{ whiteSpace: 'pre-line' }}>
+        개발자에게 하고픈 문의/요청/제보 사항이 있으시면
         <button
           className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
           onClick={() => movePath("mailto:patiencendiligence@gmail.com")}
         >
           여기로.. 💌
         </button>
+      </span>
+      <span className="text-base text-slate-200 mt-5 w-full px-6" style={{ whiteSpace: 'pre-line' }}>
+        이 앱이 도움이 됐다면, 커피 한 잔으로 응원해주세요! ☕
+        <a
+          href="https://ko-fi.com/H2H61W7DT8"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900 ml-1"
+        >
+          Ko-fi 바로가기
+        </a>
       </span>
       <Loading />
       <LogoSvg />
