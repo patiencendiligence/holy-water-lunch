@@ -40,8 +40,11 @@ export const ChatInput = ({ connected, onSend }: ChatInputProps) => {
         left: 0,
         right: 0,
         width: "100%",
+        maxWidth: "100vw",
+        overflow: "hidden",
         padding: "12px 16px",
         paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
+        boxSizing: "border-box",
       }}
     >
       <div
@@ -60,6 +63,9 @@ export const ChatInput = ({ connected, onSend }: ChatInputProps) => {
           onKeyPress={handleKeyPress}
           style={{
             flex: 1,
+            minWidth: 0,
+            width: "100%",
+            boxSizing: "border-box",
             backgroundColor: "rgba(187, 187, 187, 0.25)",
             color: "#ffffff",
             borderRadius: "9999px",
