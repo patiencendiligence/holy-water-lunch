@@ -1,6 +1,7 @@
 import Layout from "@/components/common/Layout";
 import { Feelings, Foods } from "@/constants";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useRouter } from "next/router";
 import Pusher from "pusher-js";
 
 type IMessage = {
@@ -32,18 +33,17 @@ const getUserColor = (username: string) => {
 };
 
 const Chatting = () => {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [sendMessage, setSendMessage] = useState<string>("");
   const [connected, setConnected] = useState<boolean>(false);
   const [chat, setChat] = useState<IMessage[]>([]);
   const [userCount, setUserCount] = useState<number>(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const usernameRef = useRef<string>("");
 
   useEffect(() => {
     const name = nameMaker();
     setUsername(name);
-    usernameRef.current = name;
 
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
@@ -54,7 +54,6 @@ const Chatting = () => {
       },
     });
 
-    // Presence channel for user count
     const presenceChannel = pusher.subscribe("presence-chat");
     
     presenceChannel.bind("pusher:subscription_succeeded", (members: any) => {
@@ -70,7 +69,6 @@ const Chatting = () => {
       setUserCount((prev) => Math.max(0, prev - 1));
     });
 
-    // Regular channel for messages
     const chatChannel = pusher.subscribe("chat");
     
     chatChannel.bind("message", (message: IMessage) => {
@@ -131,29 +129,38 @@ const Chatting = () => {
   const isMyMessage = (user: string) => user === username;
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 w-full">
+    <div className="flex flex-col h-screen bg-slate-900 w-full">
       <div className="flex-1 flex flex-col w-full max-w-[990px] mx-auto">
         {/* Header */}
-        <div className="px-4 py-3 bg-gray-800 border-b border-gray-700">
-          <p className="font-bold text-lg text-white">
-            {username}님 👋
-          </p>
-          <p className="text-xs text-gray-400">
-            {connected ? `🟢 연결됨 · 👥 ${userCount}명 접속 중` : "🔴 연결 중..."}
-          </p>
+        <div className="px-4 py-4 flex justify-between items-start">
+          <div>
+            <p className="font-bold text-xl text-white">
+              {username}님 👋
+            </p>
+            <p className="text-sm text-gray-400 mt-1">
+              {connected ? `🟢 연결됨   👥 ${userCount}명 접속 중` : "🔴 연결 중..."}
+            </p>
+          </div>
+          <button
+            onClick={() => router.back()}
+            className="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-medium px-4 py-2 rounded-full transition-colors"
+          >
+            뒤로가기
+          </button>
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 pb-24">
+        <div className="flex-1 overflow-y-auto px-4 py-4">
           {chat.length === 0 && (
-            <div className="text-center text-gray-500 mt-10">
-              아직 메시지가 없어요.<br />첫 메시지를 보내보세요! 🍽️
+            <div className="flex flex-col items-center justify-center h-full text-gray-400">
+              <p>아직 메시지가 없어요.</p>
+              <p className="mt-2">첫 메시지를 보내보세요! 🍽️</p>
             </div>
           )}
           
           {chat.map((chatItem, index) => {
             const isMine = isMyMessage(chatItem.user);
-            const bubbleColor = isMine ? "bg-blue-500" : getUserColor(chatItem.user);
+            const bubbleColor = isMine ? "bg-cyan-500" : getUserColor(chatItem.user);
             
             return (
               <div
@@ -184,21 +191,21 @@ const Chatting = () => {
       </div>
 
       {/* Input - Fixed at bottom */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 px-4 py-3 safe-area-bottom">
-        <div className="flex items-center gap-2 max-w-[990px] mx-auto">
+      <div className="px-4 py-4 pb-8 bg-slate-900">
+        <div className="flex items-center gap-3 max-w-[990px] mx-auto">
           <input
             type="text"
             value={sendMessage}
             onChange={sendMessageHandler}
             onKeyPress={enterKeyPress}
-            className="flex-1 bg-gray-700 text-white rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+            className="flex-1 bg-slate-800 text-white rounded-full px-5 py-3 outline-none focus:ring-2 focus:ring-cyan-500 placeholder-gray-500 border border-slate-700"
             placeholder={connected ? "메시지를 입력하세요..." : "연결 중...🕐"}
             disabled={!connected}
           />
           <button
             onClick={submitSendMessage}
             disabled={!connected || !sendMessage}
-            className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+            className="bg-cyan-500 hover:bg-cyan-600 disabled:bg-slate-700 disabled:cursor-not-allowed text-white rounded-full w-12 h-12 flex items-center justify-center transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
               <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
