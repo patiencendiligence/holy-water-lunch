@@ -33,29 +33,67 @@ export const ChatInput = ({ connected, onSend }: ChatInputProps) => {
   );
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 px-4 py-3 safe-area-bottom">
-      <div className="flex items-center gap-2 max-w-[990px] mx-auto">
+    <div
+      style={{
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: "#1f2937",
+        borderTop: "1px solid #374151",
+        padding: "12px 16px",
+        paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          maxWidth: "990px",
+          margin: "0 auto",
+        }}
+      >
         <input
           type="text"
           value={message}
           onChange={handleChange}
           onKeyPress={handleKeyPress}
-          className="flex-1 bg-gray-700 text-white rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
-          style={{ backgroundColor: "#bbbbbb40" }}
+          style={{
+            flex: 1,
+            backgroundColor: "rgba(187, 187, 187, 0.25)",
+            color: "#ffffff",
+            borderRadius: "9999px",
+            padding: "10px 16px",
+            border: "none",
+            outline: "none",
+            fontSize: "14px",
+          }}
           placeholder={connected ? "메시지를 입력하세요..." : "연결 중...🕐"}
           disabled={!connected}
         />
         <button
           onClick={handleSubmit}
           disabled={!connected || !message.trim()}
-          className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
-          style={{ marginLeft: "10px" }}
+          style={{
+            backgroundColor: !connected || !message.trim() ? "#4b5563" : "#3b82f6",
+            color: "#ffffff",
+            borderRadius: "9999px",
+            width: "40px",
+            height: "40px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "none",
+            cursor: !connected || !message.trim() ? "not-allowed" : "pointer",
+            marginLeft: "10px",
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="w-5 h-5"
+            style={{ width: "20px", height: "20px" }}
           >
             <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
           </svg>

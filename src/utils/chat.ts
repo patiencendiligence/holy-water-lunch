@@ -1,14 +1,14 @@
 import { Feelings, Foods } from "@/constants";
 
 const BUBBLE_COLORS = [
-  "bg-teal-400",
-  "bg-amber-400",
-  "bg-blue-500",
-  "bg-rose-400",
-  "bg-purple-400",
-  "bg-emerald-400",
-  "bg-orange-400",
-  "bg-pink-400",
+  "#2dd4bf", // teal-400
+  "#fbbf24", // amber-400
+  "#3b82f6", // blue-500
+  "#fb7185", // rose-400
+  "#c084fc", // purple-400
+  "#34d399", // emerald-400
+  "#fb923c", // orange-400
+  "#f472b6", // pink-400
 ];
 
 export const generateUsername = (): string => {

@@ -7,10 +7,34 @@ interface ChatHeaderProps {
 
 export const ChatHeader = ({ username, connected, userCount, onBack }: ChatHeaderProps) => {
   return (
-    <div className="px-4 py-3 bg-gray-800 border-b border-gray-700 flex justify-between items-start">
+    <div
+      style={{
+        padding: "12px 16px",
+        backgroundColor: "#1f2937",
+        borderBottom: "1px solid #374151",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+      }}
+    >
       <div>
-        <p className="font-bold text-lg text-white">{username || "로딩중..."}님 👋</p>
-        <p className="text-xs text-gray-400" style={{ fontSize: "10px" }}>
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: "18px",
+            color: "#ffffff",
+            margin: 0,
+          }}
+        >
+          {username || "로딩중..."}님 👋
+        </p>
+        <p
+          style={{
+            fontSize: "12px",
+            color: "#9ca3af",
+            margin: "4px 0 0 0",
+          }}
+        >
           {connected
             ? `🟢 연결됨 · 👥 ${userCount}명 접속 중`
             : "🔴 연결 중..."}
@@ -19,7 +43,16 @@ export const ChatHeader = ({ username, connected, userCount, onBack }: ChatHeade
       {onBack && (
         <button
           onClick={onBack}
-          className="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-medium px-4 py-2 rounded-full transition-colors"
+          style={{
+            backgroundColor: "#06b6d4",
+            color: "#ffffff",
+            fontSize: "14px",
+            fontWeight: 500,
+            padding: "8px 16px",
+            borderRadius: "9999px",
+            border: "none",
+            cursor: "pointer",
+          }}
         >
           뒤로가기
         </button>

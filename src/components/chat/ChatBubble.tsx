@@ -7,20 +7,55 @@ interface ChatBubbleProps {
 }
 
 export const ChatBubble = ({ user, message, isMine }: ChatBubbleProps) => {
-  const bubbleColor = isMine ? "bg-blue-500" : getUserBubbleColor(user);
+  const bubbleColor = isMine ? "#3b82f6" : getUserBubbleColor(user);
 
   return (
-    <div className={`flex mb-3 ${isMine ? "justify-end" : "justify-start"}`}>
-      <div className={`max-w-[75%] ${isMine ? "items-end" : "items-start"}`}>
+    <div
+      style={{
+        display: "flex",
+        marginBottom: "12px",
+        justifyContent: isMine ? "flex-end" : "flex-start",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "75%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: isMine ? "flex-end" : "flex-start",
+        }}
+      >
         {!isMine && (
-          <p className="text-xs text-gray-400 mb-1 ml-2">{user}</p>
+          <p
+            style={{
+              fontSize: "12px",
+              color: "#9ca3af",
+              marginBottom: "4px",
+              marginLeft: "8px",
+            }}
+          >
+            {user}
+          </p>
         )}
         <div
-          className={`px-4 py-2.5 rounded-2xl text-white ${bubbleColor} ${
-            isMine ? "rounded-br-sm" : "rounded-bl-sm"
-          }`}
+          style={{
+            padding: "10px 16px",
+            borderRadius: "16px",
+            borderBottomRightRadius: isMine ? "4px" : "16px",
+            borderBottomLeftRadius: isMine ? "16px" : "4px",
+            backgroundColor: bubbleColor,
+            color: "#ffffff",
+          }}
         >
-          <p className="text-sm break-words">{message}</p>
+          <p
+            style={{
+              fontSize: "14px",
+              margin: 0,
+              wordBreak: "break-word",
+            }}
+          >
+            {message}
+          </p>
         </div>
       </div>
     </div>

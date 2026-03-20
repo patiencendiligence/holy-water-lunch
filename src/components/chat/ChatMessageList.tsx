@@ -15,9 +15,23 @@ export const ChatMessageList = ({ messages, currentUser }: ChatMessageListProps)
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 py-4 pb-24">
+    <div
+      style={{
+        flex: 1,
+        overflowY: "auto",
+        padding: "16px",
+        paddingBottom: "96px",
+      }}
+    >
       {messages.length === 0 && (
-        <div className="text-center text-gray-500 mt-10" style={{ fontSize: "12px" }}>
+        <div
+          style={{
+            textAlign: "center",
+            color: "#6b7280",
+            marginTop: "40px",
+            fontSize: "12px",
+          }}
+        >
           아직 메시지가 없어요.
           <br />
           첫 메시지를 보내보세요! 🍽️
