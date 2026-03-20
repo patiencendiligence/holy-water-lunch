@@ -39,8 +39,7 @@ export const ChatInput = ({ connected, onSend }: ChatInputProps) => {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: "#1f2937",
-        borderTop: "1px solid #374151",
+        width: "100%",
         padding: "12px 16px",
         paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
       }}

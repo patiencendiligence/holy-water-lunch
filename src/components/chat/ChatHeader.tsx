@@ -1,3 +1,5 @@
+import SvgButton from "@/components/common/SvgButton";
+
 interface ChatHeaderProps {
   username: string;
   connected: boolean;
@@ -10,8 +12,6 @@ export const ChatHeader = ({ username, connected, userCount, onBack }: ChatHeade
     <div
       style={{
         padding: "12px 16px",
-        backgroundColor: "#1f2937",
-        borderBottom: "1px solid #374151",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "flex-start",
@@ -44,17 +44,13 @@ export const ChatHeader = ({ username, connected, userCount, onBack }: ChatHeade
         <button
           onClick={onBack}
           style={{
-            backgroundColor: "#06b6d4",
-            color: "#ffffff",
-            fontSize: "14px",
-            fontWeight: 500,
-            padding: "8px 16px",
-            borderRadius: "9999px",
+            background: "none",
             border: "none",
             cursor: "pointer",
+            padding: 0,
           }}
         >
-          뒤로가기
+          <SvgButton width={80} color="#06b6d4" text="뒤로" />
         </button>
       )}
     </div>
