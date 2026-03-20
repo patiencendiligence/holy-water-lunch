@@ -2,15 +2,12 @@ import Layout from "@/components/common/Layout";
 import Loading from "@/components/common/Loading";
 import { LunchType } from "@/components/common/types";
 import { useLunchList } from "@/hooks/store.query";
-import { useEffect, useState } from "react";
-const LunchList = () => {
-  const [lunchList, setLunchList] = useState<LunchType[]>([]);
-  const { data, isLoading, isFetching } = useLunchList();
-  useEffect(() => {
-    if (data) setLunchList(data);
-  }, [data]);
 
+const LunchList = () => {
+  const { data: lunchList, isLoading, isFetching } = useLunchList();
+  
   if (isLoading || isFetching) return <Loading />;
+  
   return (
     <>
       <ul className="mx-auto max-w-md p-2 shadow" style={{ height: `calc(100vh - 100px)`, overflow: `scroll` }}>
@@ -73,4 +70,5 @@ const Lunch = ({
 };
 
 LunchList.getLayout = (page: React.ReactElement) => <Layout>{page}</Layout>;
+
 export default LunchList;

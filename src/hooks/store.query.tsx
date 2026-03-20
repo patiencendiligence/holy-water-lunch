@@ -23,9 +23,12 @@ export const useLunchList = (type?: string) => {
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: ['GetLunchList'],
+    queryKey: ['GetLunchList', type],
     queryFn: () => fetchList(type),
     keepPreviousData: true,
+    staleTime: 1000 * 60 * 5, // 5분간 fresh 상태 유지 (재요청 안함)
+    cacheTime: 1000 * 60 * 30, // 30분간 캐시 유지
+    refetchOnWindowFocus: false, // 윈도우 포커스시 자동 재요청 안함
     onError: ({
       data: {
         error: { code, userMessage, message },

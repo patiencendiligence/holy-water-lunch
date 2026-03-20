@@ -12,10 +12,21 @@ export const jwt = new google.auth.JWT(
 );
 export const sheets = google.sheets({ version: "v4", auth: jwt });
 
+// 메모리 캐시
+let cachedData: any = null;
+let cacheTime: number = 0;
+const CACHE_DURATION = 60 * 1000; // 60초 캐시
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // 캐시 체크
+  if (cachedData && Date.now() - cacheTime < CACHE_DURATION) {
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate');
+    return res.status(200).json({ data: cachedData, cached: true });
+  }
+
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.NEXT_PUBLIC_ENV_SPREADSHEET_ID,
@@ -39,7 +50,13 @@ export default async function handler(
           isDisplayed: row[8] ?? false,
         }))
         .filter((row, index) => row && index > 0);
-      return res.status(201).json({
+      
+      // 캐시 저장
+      cachedData = setRows;
+      cacheTime = Date.now();
+      
+      res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate');
+      return res.status(200).json({
         data: setRows,
       });
     }

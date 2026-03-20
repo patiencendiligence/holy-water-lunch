@@ -12,15 +12,15 @@ import Data from "./Data";
 
 const TargetLunch = () => {
   const router = useRouter();
-  const lunchTypeKeys = options?.map((t: any) => {
-    return t.value;
-  });
+  const lunchTypeKeys = options?.map((t: any) => t.value);
   const thisType =
     router?.query?.type !== "random"
       ? router.query.type
       : lunchTypeKeys[Math.floor(Math.random() * lunchTypeKeys.length)];
-  const { data, isLoading, isFetching } = useLunchList(thisType ?? '');
+  const { data, isLoading, isFetching } = useLunchList(thisType as string ?? '');
+  
   if (isLoading || isFetching) return <Loading text="Loading..." />;
+  
   return (
     <section className="work-carousel metro position-re">
       <div className="container-fluid">
