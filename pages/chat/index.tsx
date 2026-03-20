@@ -36,29 +36,52 @@ const Chatting = () => {
   const [sendMessage, setSendMessage] = useState<string>("");
   const [connected, setConnected] = useState<boolean>(false);
   const [chat, setChat] = useState<IMessage[]>([]);
+  const [userCount, setUserCount] = useState<number>(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const usernameRef = useRef<string>("");
 
   useEffect(() => {
-    setUsername(nameMaker());
+    const name = nameMaker();
+    setUsername(name);
+    usernameRef.current = name;
 
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+      channelAuthorization: {
+        endpoint: "/api/pusher/auth",
+        transport: "ajax",
+        params: { username: name },
+      },
     });
 
-    const channel = pusher.subscribe("chat");
+    // Presence channel for user count
+    const presenceChannel = pusher.subscribe("presence-chat");
     
-    pusher.connection.bind("connected", () => {
-      console.log("Pusher connected!");
+    presenceChannel.bind("pusher:subscription_succeeded", (members: any) => {
+      setUserCount(members.count);
       setConnected(true);
     });
 
-    channel.bind("message", (message: IMessage) => {
+    presenceChannel.bind("pusher:member_added", () => {
+      setUserCount((prev) => prev + 1);
+    });
+
+    presenceChannel.bind("pusher:member_removed", () => {
+      setUserCount((prev) => Math.max(0, prev - 1));
+    });
+
+    // Regular channel for messages
+    const chatChannel = pusher.subscribe("chat");
+    
+    chatChannel.bind("message", (message: IMessage) => {
       setChat((prev) => [...prev, message]);
     });
 
     return () => {
-      channel.unbind_all();
-      channel.unsubscribe();
+      presenceChannel.unbind_all();
+      presenceChannel.unsubscribe();
+      chatChannel.unbind_all();
+      chatChannel.unsubscribe();
       pusher.disconnect();
     };
   }, []);
@@ -108,55 +131,62 @@ const Chatting = () => {
   const isMyMessage = (user: string) => user === username;
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900">
+    <div className="flex flex-col h-screen bg-gray-900 w-full">
       <div className="flex-1 flex flex-col w-full max-w-[990px] mx-auto">
         {/* Header */}
-        <div className="px-4 py-3 bg-gray-800 border-b border-gray-700">
-          <p className="font-bold text-lg text-white">
-            {username}님 👋
-          </p>
-          <p className="text-xs text-gray-400">
-            {connected ? "🟢 연결됨" : "🔴 연결 중..."}
-          </p>
+        <div className="px-4 py-3 bg-gray-800 border-b border-gray-700 flex justify-between items-center">
+          <div>
+            <p className="font-bold text-lg text-white">
+              {username}님 👋
+            </p>
+            <p className="text-xs text-gray-400">
+              {connected ? "🟢 연결됨" : "🔴 연결 중..."}
+            </p>
+          </div>
+          {connected && (
+            <div className="text-xs text-gray-400 bg-gray-700 px-2 py-1 rounded-full">
+              👥 {userCount}명 접속 중
+            </div>
+          )}
         </div>
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-4 py-4 pb-24">
-        {chat.length === 0 && (
-          <div className="text-center text-gray-500 mt-10">
-            아직 메시지가 없어요.<br />첫 메시지를 보내보세요! 🍽️
-          </div>
-        )}
-        
-        {chat.map((chatItem, index) => {
-          const isMine = isMyMessage(chatItem.user);
-          const bubbleColor = isMine ? "bg-blue-500" : getUserColor(chatItem.user);
+          {chat.length === 0 && (
+            <div className="text-center text-gray-500 mt-10">
+              아직 메시지가 없어요.<br />첫 메시지를 보내보세요! 🍽️
+            </div>
+          )}
           
-          return (
-            <div
-              key={index}
-              className={`flex mb-3 ${isMine ? "justify-end" : "justify-start"}`}
-            >
-              <div className={`max-w-[75%] ${isMine ? "items-end" : "items-start"}`}>
-                {!isMine && (
-                  <p className="text-xs text-gray-400 mb-1 ml-2">
-                    {chatItem.user}
-                  </p>
-                )}
-                <div
-                  className={`px-4 py-2.5 rounded-2xl text-white ${bubbleColor} ${
-                    isMine 
-                      ? "rounded-br-sm" 
-                      : "rounded-bl-sm"
-                  }`}
-                >
-                  <p className="text-sm break-words">{chatItem.message}</p>
+          {chat.map((chatItem, index) => {
+            const isMine = isMyMessage(chatItem.user);
+            const bubbleColor = isMine ? "bg-blue-500" : getUserColor(chatItem.user);
+            
+            return (
+              <div
+                key={index}
+                className={`flex mb-3 ${isMine ? "justify-end" : "justify-start"}`}
+              >
+                <div className={`max-w-[75%] ${isMine ? "items-end" : "items-start"}`}>
+                  {!isMine && (
+                    <p className="text-xs text-gray-400 mb-1 ml-2">
+                      {chatItem.user}
+                    </p>
+                  )}
+                  <div
+                    className={`px-4 py-2.5 rounded-2xl text-white ${bubbleColor} ${
+                      isMine 
+                        ? "rounded-br-sm" 
+                        : "rounded-bl-sm"
+                    }`}
+                  >
+                    <p className="text-sm break-words">{chatItem.message}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-        <div ref={messagesEndRef} />
+            );
+          })}
+          <div ref={messagesEndRef} />
         </div>
       </div>
 
