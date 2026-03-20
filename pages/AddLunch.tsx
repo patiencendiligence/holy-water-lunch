@@ -145,7 +145,7 @@ const AddLunch = () => {
             type="submit"
           >
             {!!loading && (
-              <img src="/assets/loading.svg" width={100} height={101} alt="submit" />
+              <img src="/assets/loading.svg" width={24} height={24} alt="loading" className="inline animate-spin" />
             )}
             {(!!isValid || !loading) && (
               <>
