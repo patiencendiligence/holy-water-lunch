@@ -109,18 +109,19 @@ const Chatting = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-900">
-      {/* Header */}
-      <div className="px-4 py-3 bg-gray-800 border-b border-gray-700">
-        <p className="font-bold text-lg text-white">
-          {username}님 👋
-        </p>
-        <p className="text-xs text-gray-400">
-          {connected ? "🟢 연결됨" : "🔴 연결 중..."}
-        </p>
-      </div>
+      <div className="flex-1 flex flex-col w-full max-w-[990px] mx-auto">
+        {/* Header */}
+        <div className="px-4 py-3 bg-gray-800 border-b border-gray-700">
+          <p className="font-bold text-lg text-white">
+            {username}님 👋
+          </p>
+          <p className="text-xs text-gray-400">
+            {connected ? "🟢 연결됨" : "🔴 연결 중..."}
+          </p>
+        </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 pb-24">
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto px-4 py-4 pb-24">
         {chat.length === 0 && (
           <div className="text-center text-gray-500 mt-10">
             아직 메시지가 없어요.<br />첫 메시지를 보내보세요! 🍽️
@@ -156,11 +157,12 @@ const Chatting = () => {
           );
         })}
         <div ref={messagesEndRef} />
+        </div>
       </div>
 
       {/* Input - Fixed at bottom */}
       <div className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 px-4 py-3 safe-area-bottom">
-        <div className="flex items-center gap-2 max-w-2xl mx-auto">
+        <div className="flex items-center gap-2 max-w-[990px] mx-auto">
           <input
             type="text"
             value={sendMessage}
