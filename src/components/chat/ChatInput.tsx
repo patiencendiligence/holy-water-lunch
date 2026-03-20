@@ -41,6 +41,7 @@ export const ChatInput = ({ connected, onSend }: ChatInputProps) => {
           onChange={handleChange}
           onKeyPress={handleKeyPress}
           className="flex-1 bg-gray-700 text-white rounded-full px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+          style={{ backgroundColor: "#bbbbbb40" }}
           placeholder={connected ? "메시지를 입력하세요..." : "연결 중...🕐"}
           disabled={!connected}
         />
@@ -48,6 +49,7 @@ export const ChatInput = ({ connected, onSend }: ChatInputProps) => {
           onClick={handleSubmit}
           disabled={!connected || !message.trim()}
           className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+          style={{ marginLeft: "10px" }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
