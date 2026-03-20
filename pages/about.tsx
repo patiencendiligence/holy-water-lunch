@@ -13,7 +13,7 @@ const About = () => {
   return (
     <>
       <span className="text-base text-slate-200 mt-10 w-full px-6">
-        {`HOLY WATER LUNCH는\n보다 짧고 성공적인\n서울 성수동에서의 점심메뉴 선택을 위한 앱입니다.\n\n성수동 직장인의 가성비와 취향을 고려하여 선별한 리스트들 입니다.\n\n리스트에 추가를 원하시면`}
+        {`HOLY WATER LUNCH는 \n서울 성수동에서의 - \n보다 짧고 성공적인- 점심메뉴 선택을 위한 앱입니다.\n\n성수동 직장인의 가성비와 취향을 고려하여 선별한 리스트들 입니다.\n\n리스트에 추가를 원하시면`}
         <button
           className="flex items-center text-sm font-bold leading-6 text-cyan-500 hover:text-cyan-700 active:text-cyan-900"
           onClick={() => movePath("/AddLunch")}

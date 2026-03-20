@@ -134,20 +134,13 @@ const Chatting = () => {
     <div className="flex flex-col h-screen bg-gray-900 w-full">
       <div className="flex-1 flex flex-col w-full max-w-[990px] mx-auto">
         {/* Header */}
-        <div className="px-4 py-3 bg-gray-800 border-b border-gray-700 flex justify-between items-center">
-          <div>
-            <p className="font-bold text-lg text-white">
-              {username}님 👋
-            </p>
-            <p className="text-xs text-gray-400">
-              {connected ? "🟢 연결됨" : "🔴 연결 중..."}
-            </p>
-          </div>
-          {connected && (
-            <div className="text-xs text-gray-400 bg-gray-700 px-2 py-1 rounded-full">
-              👥 {userCount}명 접속 중
-            </div>
-          )}
+        <div className="px-4 py-3 bg-gray-800 border-b border-gray-700">
+          <p className="font-bold text-lg text-white">
+            {username}님 👋
+          </p>
+          <p className="text-xs text-gray-400">
+            {connected ? `🟢 연결됨 · 👥 ${userCount}명 접속 중` : "🔴 연결 중..."}
+          </p>
         </div>
 
         {/* Messages */}
